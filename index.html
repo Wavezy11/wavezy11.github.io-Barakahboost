@@ -4,20 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BarakahBoost - Korte content, grote impact!</title>
+<link rel="icon" type="image/x-icon" href="img/favicon.ico">
+
+<!-- Preload critical resources for faster loading -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"></noscript>
+
+<link rel="preload" href="styles.css" as="style">
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="form-styles.css">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<!-- Swiper CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- Defer non-critical CSS -->
+<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
+
+<!-- Defer Swiper loading -->
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"></noscript>
 </head>
 <body>
 <!-- Navigation -->
 <nav class="navbar">
   <div class="nav-container">
       <div class="nav-logo">
-          <img src="img/logo.png?height=84&width=200" alt="BarakahBoost Logo" class="logo-image">
+          <!-- Add lazy loading and optimize image -->
+          <img src="img/logo.png?height=84&width=200" alt="BarakahBoost Logo" class="logo-image" loading="eager" width="200" height="84">
       </div>
       <div class="nav-menu">
           <a href="#hero" class="nav-link">Home</a>
@@ -150,7 +161,8 @@
               </div>
           </div>
           <div class="about-image">
-              <img src="img/brainstormen.png" alt="BarakahBoost Team" class="team-image">
+              <!-- Add lazy loading for below-fold images -->
+              <img src="img/Barakahboost over-ons.jpeg" alt="BarakahBoost Team" class="team-image" loading="lazy" width="500" height="400">
           </div>
           <a href="#contact" class="over-button">Vraag je offerte aan</a>
       </div>
@@ -207,7 +219,8 @@
       <div class="portfolio-grid">
           <div class="portfolio-card" data-project="viral-tiktok">
               <div class="portfolio-image">
-                  <img src="img/abu taymiyyah/hero edit.jpg" alt="Social Media Campagne" class="project-image">
+                  <!-- Add lazy loading and dimensions for portfolio images -->
+                  <img src="img/abu taymiyyah/hero edit.jpg" alt="Social Media Campagne" class="project-image" loading="lazy" width="400" height="600">
                   <div class="portfolio-overlay">
                       <div class="portfolio-info">
                           <i class="fas fa-eye"></i>
@@ -226,7 +239,7 @@
           </div>
           <div class="portfolio-card" data-project="brand-identity">
               <div class="portfolio-image">
-                  <img src="img/nuurfades/e89b3b7a-a0da-461b-9dd8-69452b3c8713_rw_1200.jpg" alt="Brand Identity Design" class="project-image">
+                  <img src="img/nuurfades/e89b3b7a-a0da-461b-9dd8-69452b3c8713_rw_1200.jpg" alt="Brand Identity Design" class="project-image" loading="lazy" width="400" height="600">
                   <div class="portfolio-overlay">
                       <div class="portfolio-info">
                           <i class="fas fa-palette"></i>
@@ -246,7 +259,7 @@
           </div>
           <div class="portfolio-card" data-project="ecommerce-platform">
               <div class="portfolio-image">
-                  <img src="img/liv zorg/main-foto.jpg" alt="Livzorg - Foto" class="project-image">
+                  <img src="img/liv zorg/main-foto.jpg" alt="Livzorg - Foto" class="project-image" loading="lazy" width="400" height="600">
                   <div class="portfolio-overlay">
                       <div class="portfolio-info">
                           <i class="fas fa-shopping-cart"></i>
@@ -313,60 +326,68 @@
                   <!-- Originele 3 slides -->
                   <div class="swiper-slide">
                       <div class="logo-item">
-                          <img src="img/spaolivia.png" alt="Spa Olivia" class="partner-logo">
+                          <!-- Add lazy loading for logo images -->
+                          <img src="img/spaolivia.png" alt="Spa Olivia" class="partner-logo" loading="lazy" width="120" height="80">
                           <div class="company-name">Spa Olivia</div>
                       </div>
                   </div>
                   <div class="swiper-slide">
                       <div class="logo-item">
-                          <img src="img/Systematex.jpg" alt="Systematex" class="partner-logo">
+                          <img src="img/Systematex.jpg" alt="Systematex" class="partner-logo" loading="lazy" width="120" height="80">
                           <div class="company-name">Systematex</div>
                       </div>
                   </div>
                   <div class="swiper-slide">
                       <div class="logo-item">
-                          <img src="img/ziyaclothing.jpeg" alt="Ziya Clothing" class="partner-logo">
+                          <img src="img/ziyaclothing.jpeg" alt="Ziya Clothing" class="partner-logo" loading="lazy" width="120" height="80">
                           <div class="company-name">Ziya Clothing</div>
                       </div>
                   </div>
                   <!-- Duplicaten voor betere loop -->
                   <div class="swiper-slide">
                       <div class="logo-item">
-                          <img src="img/spaolivia.png" alt="Spa Olivia" class="partner-logo">
-                          <div class="company-name">Spa Olivia</div>
+                          <img src="img/nuurfades.jpeg" alt="Nuurfades" class="partner-logo" loading="lazy" width="120" height="80">
+                          <div class="company-name">Nuurfades</div>
                       </div>
                   </div>
                   <div class="swiper-slide">
                       <div class="logo-item">
-                          <img src="img/Systematex.jpg" alt="Systematex" class="partner-logo">
-                          <div class="company-name">Systematex</div>
+                          <img src="img/livzorg.jpeg" alt="Livzorg" class="partner-logo" loading="lazy" width="120" height="80">
+                          <div class="company-name">Liv Zorg</div>
                       </div>
                   </div>
                   <div class="swiper-slide">
                       <div class="logo-item">
-                          <img src="img/ziyaclothing.jpeg" alt="Ziya Clothing" class="partner-logo">
-                          <div class="company-name">Ziya Clothing</div>
+                          <img src="img/glansdirect.jpg" alt="Glans Direct" class="partner-logo" loading="lazy" width="120" height="80">
+                          <div class="company-name">Glans Direct</div>
                       </div>
                   </div>
                   <!-- Extra duplicaten voor soepele loop -->
                   <div class="swiper-slide">
                       <div class="logo-item">
-                          <img src="img/spaolivia.png" alt="Spa Olivia" class="partner-logo">
+                          <img src="img/nightfashion.jpg" alt="nightfashion" class="partner-logo" loading="lazy" width="120" height="80">
+                          <div class="company-name">Night Fasion</div>
+                      </div>
+                  </div>
+                 <div class="swiper-slide">
+                      <div class="logo-item">
+                          <img src="img/spaolivia.png" alt="Spa Olivia" class="partner-logo" loading="lazy" width="120" height="80">
                           <div class="company-name">Spa Olivia</div>
                       </div>
                   </div>
-                  <div class="swiper-slide">
+               <div class="swiper-slide">
                       <div class="logo-item">
-                          <img src="img/Systematex.jpg" alt="Systematex" class="partner-logo">
-                          <div class="company-name">Systematex</div>
+                          <img src="img/nuurfades.jpeg" alt="Nuurfades" class="partner-logo" loading="lazy" width="120" height="80">
+                          <div class="company-name">Nuurfades</div>
                       </div>
                   </div>
-                  <div class="swiper-slide">
+                     <div class="swiper-slide">
                       <div class="logo-item">
-                          <img src="img/ziyaclothing.jpeg" alt="Ziya Clothing" class="partner-logo">
-                          <div class="company-name">Ziya Clothing</div>
+                          <img src="img/livzorg.jpeg" alt="Livzorg" class="partner-logo" loading="lazy" width="120" height="80">
+                          <div class="company-name">Liv Zorg</div>
                       </div>
                   </div>
+                 
               </div>
           </div>
       </div>
@@ -445,7 +466,8 @@
   <div class="container">
       <div class="footer-content">
           <div class="footer-logo">
-              <img src="img/logo.png?height=84&width=200" alt="BarakahBoost Logo" class="footer-logo-image">
+              <!-- Add lazy loading for footer logo -->
+              <img src="img/logo.png?height=84&width=200" alt="BarakahBoost Logo" class="footer-logo-image" loading="lazy" width="200" height="84">
           </div>
           <div class="footer-links">
               <a href="#hero">Home</a>
@@ -470,7 +492,10 @@
   </div>
 </footer>
 
-<script src="script.js"></script>
+<!-- Defer JavaScript loading for better performance -->
+<script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script defer src="script.js"></script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('contact-form');
@@ -549,7 +574,7 @@ function showInFormSuccess() {
           formSuccess.style.transform = 'translateY(0)';
           
           const checkmark = formSuccess.querySelector('.checkmark');
-          checkmark.classList.add('animate');
+          if (checkmark) checkmark.classList.add('animate');
       }, 50);
   }, 300);
 }
@@ -568,7 +593,7 @@ function resetForm() {
   btnText.style.display = 'inline';
   btnLoader.style.display = 'none';
   
-  checkmark.classList.remove('animate');
+  if (checkmark) checkmark.classList.remove('animate');
   
   formSuccess.style.opacity = '0';
   formSuccess.style.transform = 'translateY(20px)';
@@ -583,6 +608,8 @@ function resetForm() {
       }, 50);
   }, 300);
 }
+
+
 </script>
 </body>
 </html>
