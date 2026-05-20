@@ -6,10 +6,8 @@ import { motion } from 'framer-motion'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { GradientText } from '@/components/ui/GradientText'
 import { fadeUp, staggerContainer } from '@/lib/animations'
-import { useIsMobile } from '@/lib/hooks'
 
 export function WhyUs() {
-  const isMobile = useIsMobile()
 
   const points = [
     {
@@ -40,11 +38,11 @@ export function WhyUs() {
         
         {/* Left Column: Heading Statement */}
         <motion.div
-          initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+          initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={isMobile ? { duration: 0 } : { duration: 0.8 }}
-          className="space-y-6 flex flex-col items-center text-center lg:items-start lg:text-left"
+          transition={{ duration: 0.8 }}
+          className="space-y-6 flex flex-col items-center text-center lg:items-start lg:text-left motion-mobile-static"
         >
           <span className="text-xs uppercase tracking-widest text-brand-accent font-bold font-mono">✦ WAAROM BARAKAHBOOST</span>
           <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight">
@@ -58,8 +56,8 @@ export function WhyUs() {
 
         {/* Right Column: Stacked Cards */}
         <motion.div
-          variants={isMobile ? {} : staggerContainer}
-          initial={isMobile ? "animate" : "initial"}
+          variants={staggerContainer}
+          initial="initial"
           whileInView="animate"
           viewport={{ once: true, margin: "-100px" }}
           className="space-y-4"
@@ -69,8 +67,8 @@ export function WhyUs() {
             return (
               <GlassCard
                 key={point.text}
-                variants={isMobile ? {} : fadeUp}
-                className="p-6 flex flex-col items-center text-center sm:flex-row sm:items-start sm:text-left gap-5 border border-white/5 bg-white/[0.02]"
+                variants={fadeUp}
+                className="p-6 flex flex-col items-center text-center sm:flex-row sm:items-start sm:text-left gap-5 border border-white/5 bg-white/[0.02] motion-mobile-static"
               >
                 <div className="w-10 h-10 rounded-lg bg-brand-accent/10 border border-brand-accent/20 flex items-center justify-center text-brand-accent shrink-0 glow-glow">
                   <Icon className="w-5 h-5" />

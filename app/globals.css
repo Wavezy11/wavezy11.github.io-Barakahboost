@@ -97,3 +97,10 @@ textarea:-webkit-autofill:focus {
 .glow-glow {
   filter: drop-shadow(0 0 15px rgba(62, 207, 178, 0.4));
 }
+
+@media (max-width: 768px) {
+  .motion-mobile-static {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

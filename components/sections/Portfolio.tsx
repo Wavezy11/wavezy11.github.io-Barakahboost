@@ -10,10 +10,8 @@ import { GradientText } from '@/components/ui/GradientText'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { fadeUp, staggerContainer } from '@/lib/animations'
-import { useIsMobile } from '@/lib/hooks'
 
 export function Portfolio() {
-  const isMobile = useIsMobile()
   const [activeCase, setActiveCase] = useState<CaseStudy | null>(null)
   const [activeMediaIndex, setActiveMediaIndex] = useState<number>(0)
 
@@ -42,8 +40,8 @@ export function Portfolio() {
 
         {/* Portfolio Grid */}
         <motion.div
-          variants={isMobile ? {} : staggerContainer}
-          initial={isMobile ? "animate" : "initial"}
+          variants={staggerContainer}
+          initial="initial"
           whileInView="animate"
           viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6"
@@ -51,9 +49,9 @@ export function Portfolio() {
           {cases.map((item) => (
             <motion.div
               key={item.id}
-              variants={isMobile ? {} : fadeUp}
+              variants={fadeUp}
               onClick={() => openModal(item)}
-              className="group cursor-pointer"
+              className="group cursor-pointer motion-mobile-static"
             >
               <GlassCard className="p-0 overflow-hidden border border-white/5 bg-white/[0.01] flex flex-col h-full rounded-[24px]">
                 {/* Image Section */}

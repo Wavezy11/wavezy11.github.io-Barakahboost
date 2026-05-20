@@ -6,10 +6,8 @@ import { motion } from 'framer-motion'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { GradientText } from '@/components/ui/GradientText'
 import { fadeUp, staggerContainer } from '@/lib/animations'
-import { useIsMobile } from '@/lib/hooks'
 
 export function HowWeWork() {
-  const isMobile = useIsMobile()
 
   const steps = [
     {
@@ -59,8 +57,8 @@ export function HowWeWork() {
 
           {/* Steps Grid */}
           <motion.div
-            variants={isMobile ? {} : staggerContainer}
-            initial={isMobile ? "animate" : "initial"}
+            variants={staggerContainer}
+            initial="initial"
             whileInView="animate"
             viewport={{ once: true, margin: "-100px" }}
             className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10"
@@ -68,10 +66,10 @@ export function HowWeWork() {
             {steps.map((step) => {
               const Icon = step.icon
               return (
-                <GlassCard
+                  <GlassCard
                   key={step.num}
-                  variants={isMobile ? {} : fadeUp}
-                  className="p-8 flex flex-col items-center text-center relative bg-brand-surface/40 hover:scale-[1.03] transition-transform duration-300"
+                  variants={fadeUp}
+                  className="p-8 flex flex-col items-center text-center relative bg-brand-surface/40 hover:scale-[1.03] transition-transform duration-300 motion-mobile-static"
                 >
                   {/* Step Number Badge */}
                   <span className="absolute top-4 right-6 font-mono text-xs font-bold text-brand-accent/40">

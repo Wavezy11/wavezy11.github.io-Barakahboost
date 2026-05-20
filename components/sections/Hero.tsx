@@ -7,11 +7,9 @@ import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 import { GradientText } from '@/components/ui/GradientText'
 import { fadeUp, staggerContainer } from '@/lib/animations'
-import { useIsMobile } from '@/lib/hooks'
 import { HeroSlider } from '@/components/ui/HeroSlider'
 
 export function Hero() {
-  const isMobile = useIsMobile()
 
   return (
     <section className="relative flex flex-col lg:flex-row items-center justify-start lg:justify-center px-4 sm:px-6 lg:px-8 pt-32 pb-16 lg:pt-0 lg:min-h-[100dvh] gap-8 lg:gap-16">
@@ -65,16 +63,16 @@ export function Hero() {
 
       {/* Scroll indicator */}
       <motion.div 
-        initial={isMobile ? { opacity: 1 } : { opacity: 0 }}
+        initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={isMobile ? { duration: 0 } : { delay: 1 }}
+        transition={{ delay: 1 }}
         className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2 cursor-pointer z-10"
         onClick={() => document.getElementById('stats')?.scrollIntoView({ behavior: 'smooth' })}
       >
         <span className="text-[10px] uppercase tracking-widest text-brand-muted font-bold font-mono">Scroll naar beneden</span>
         <motion.div
-          animate={isMobile ? {} : { y: [0, 6, 0] }}
-          transition={isMobile ? {} : { repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+          animate={{ y: [0, 6, 0] }}
+          transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
         >
           <ChevronDown className="w-5 h-5 text-brand-accent" />
         </motion.div>

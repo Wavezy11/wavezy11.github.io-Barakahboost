@@ -8,7 +8,6 @@ import { services } from '@/lib/data'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { GradientText } from '@/components/ui/GradientText'
 import { fadeUp, staggerContainer } from '@/lib/animations'
-import { useIsMobile } from '@/lib/hooks'
 
 const iconMap: Record<string, React.ComponentType<any>> = {
   Layout: Layout,
@@ -22,7 +21,6 @@ const iconMap: Record<string, React.ComponentType<any>> = {
 }
 
 export function Services() {
-  const isMobile = useIsMobile()
 
   return (
     <section id="services" className="relative py-24 z-10">
@@ -40,8 +38,8 @@ export function Services() {
 
         {/* Services Grid */}
         <motion.div 
-          variants={isMobile ? {} : staggerContainer}
-          initial={isMobile ? "animate" : "initial"}
+          variants={staggerContainer}
+          initial="initial"
           whileInView="animate"
           viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6"
@@ -51,8 +49,8 @@ export function Services() {
             return (
               <GlassCard
                 key={service.id}
-                variants={isMobile ? {} : fadeUp}
-                className="p-5 sm:p-6 flex flex-col gap-3 items-center text-center sm:items-start sm:text-left justify-between h-[280px] w-full"
+                variants={fadeUp}
+                className="p-5 sm:p-6 flex flex-col gap-3 items-center text-center sm:items-start sm:text-left justify-between h-[280px] w-full motion-mobile-static"
               >
                 <div className="flex flex-col items-center text-center sm:items-start sm:text-left w-full">
                   <div className="w-12 h-12 rounded-xl bg-brand-accent/10 border border-brand-accent/20 flex items-center justify-center text-brand-accent mb-6 glow-glow">
