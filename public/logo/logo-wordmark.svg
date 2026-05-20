@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 50" fill="none">
+  <text x="10" y="35" font-family="'Clash Display', 'Satoshi', sans-serif" font-weight="bold" font-size="28" fill="url(#brand-grad)">BarakahBoost</text>
+  <defs>
+    <linearGradient id="brand-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a8c5b8" />
+      <stop offset="40%" stop-color="#2d7d6f" />
+      <stop offset="100%" stop-color="#0a3d35" />
+    </linearGradient>
+  </defs>
+</svg>
