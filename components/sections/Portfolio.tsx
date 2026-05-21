@@ -1,245 +1,188 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import Image from 'next/image'
-import { X, Play, ExternalLink } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { cases, CaseStudy, GalleryItem } from '@/lib/data'
-import { GlassCard } from '@/components/ui/GlassCard'
+import Link from 'next/link'
+import { motion } from 'framer-motion'
+import { cases } from '@/lib/data'
 import { GradientText } from '@/components/ui/GradientText'
-import { Badge } from '@/components/ui/Badge'
-import { Button } from '@/components/ui/Button'
-import { fadeUp, staggerContainer } from '@/lib/animations'
+import { ArrowRight } from 'lucide-react'
+import { fadeUp } from '@/lib/animations'
 
 export function Portfolio() {
-  const [activeCase, setActiveCase] = useState<CaseStudy | null>(null)
-  const [activeMediaIndex, setActiveMediaIndex] = useState<number>(0)
+  // We expect 3 cases for this specific layout.
+  // Left large card (index 0)
+  // Right stacked cards (index 1 and 2)
+  const leftCase = cases[0]
+  const topCase = cases[1]
+  const bottomCase = cases[2]
 
-  const openModal = (c: CaseStudy) => {
-    setActiveCase(c)
-    setActiveMediaIndex(0)
-  }
-
-  const closeModal = () => {
-    setActiveCase(null)
-  }
+  if (!leftCase || !topCase || !bottomCase) return null; // Fallback if data is missing
 
   return (
-    <section id="portfolio" className="relative py-24 z-10">
+    <section id="portfolio" className="relative py-[80px] lg:py-[120px] z-10">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-4xl sm:text-5xl font-display font-bold leading-tight mb-4">
-            Ons <GradientText>werk</GradientText>
+        <div className="flex flex-col items-start mb-16 lg:mb-24 w-full">
+          <span className="section-label mb-6">✦ PORTFOLIO</span>
+          <h2 className="text-4xl sm:text-5xl lg:text-[64px] font-display font-bold leading-[1.1] tracking-tight mb-6 text-white">
+            Geselecteerd <br/><GradientText>werk</GradientText>
           </h2>
-          <p className="text-brand-muted text-base sm:text-lg leading-relaxed">
-            Ontdek een selectie van onze recente cases en bekijk hoe we impact maken.
+          <p className="text-brand-muted text-[15px] sm:text-base leading-relaxed max-w-xl">
+            Geen theoretische plannen, maar tastbaar resultaat. Bekijk de impact die we creëren voor premium merken.
           </p>
         </div>
 
-        {/* Portfolio Grid */}
-        <motion.div
-          variants={staggerContainer}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6"
-        >
-          {cases.map((item) => (
-            <motion.div
-              key={item.id}
-              variants={fadeUp}
-              onClick={() => openModal(item)}
-              className="group cursor-pointer motion-mobile-static"
+        {/* Asymmetrical Grid */}
+        <div className="flex flex-col lg:flex-row gap-6 w-full">
+          
+          {/* Left Large Card */}
+          <Link href={leftCase.projectLink || '#'} className="w-full lg:w-1/2 block">
+            <motion.div 
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6 }}
+              className="w-full h-[400px] lg:h-[520px] relative group overflow-hidden rounded-[16px]"
             >
-              <GlassCard className="p-0 overflow-hidden border border-white/5 bg-white/[0.01] flex flex-col h-full rounded-[24px]">
-                {/* Image Section */}
-                <div className="relative w-full aspect-[4/3] overflow-hidden bg-brand-surface2 rounded-t-2xl">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    unoptimized
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    style={{ objectPosition: item.imagePosition || 'center' }}
-                  />
-                  {/* Subtle Accent Glow Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-60" />
-                  
-                  {/* Hover visual cue */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-brand-dark/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-[2px]">
-                    <div className="w-14 h-14 rounded-full bg-brand-accent/25 border border-brand-accent/40 flex items-center justify-center text-brand-accent shadow-[0_0_20px_rgba(62,207,178,0.3)]">
-                      <Play className="w-6 h-6 fill-current ml-0.5" />
-                    </div>
-                  </div>
+            <Image
+              src={leftCase.image}
+              alt={leftCase.title}
+              fill
+              unoptimized
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+              style={{ objectPosition: leftCase.imagePosition || 'center' }}
+            />
+            
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.85)] via-[rgba(0,0,0,0.4)] to-transparent transition-opacity duration-500 group-hover:opacity-80" />
+            
+            {/* Content Absolute Bottom */}
+            <div className="absolute bottom-0 left-0 w-full p-8 lg:p-10 flex flex-col items-start">
+              <span className="mb-4" style={{
+                background: 'rgba(0,200,130,0.15)',
+                border: '1px solid rgba(0,200,130,0.3)',
+                color: '#00c882',
+                fontSize: '11px',
+                padding: '4px 10px',
+                borderRadius: '20px',
+                fontWeight: 700,
+                letterSpacing: '0.05em'
+              }}>
+                {leftCase.stat}
+              </span>
+              
+              <h3 className="text-3xl lg:text-4xl font-bold text-white mb-3 tracking-tight">
+                {leftCase.title}
+              </h3>
+              
+              <p className="text-white/70 text-sm max-w-md line-clamp-2 mb-6">
+                {leftCase.shortDescription}
+              </p>
 
-                  {/* Badge */}
-                  <div className="absolute top-4 left-4 z-10">
-                    <Badge className="bg-brand-dark/75 border-white/10 text-brand-accent">
-                      {item.stat}
-                    </Badge>
-                  </div>
-                </div>
-
-                {/* Info Section */}
-                <div className="p-6 flex flex-col justify-between flex-grow">
-                  <div>
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      {item.tags.slice(0, 2).map((tag) => (
-                        <span key={tag} className="text-[10px] uppercase font-bold tracking-wider text-brand-muted">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <h3 className="text-xl font-bold font-display text-brand-text mb-2 group-hover:text-brand-accent transition-colors">
-                      {item.title}
-                    </h3>
-                    <p className="text-brand-muted text-sm leading-relaxed line-clamp-3">
-                      {item.shortDescription}
-                    </p>
-                  </div>
-                  
-                  <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-brand-accent mt-6">
-                    Case bekijken &rarr;
-                  </span>
-                </div>
-              </GlassCard>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-
-      {/* Detail Modal Overlay */}
-      <AnimatePresence>
-        {activeCase && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-brand-dark/90 backdrop-blur-20 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
-            onClick={closeModal}
-          >
-            <motion.div
-              initial={{ scale: 0.95, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 20 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 250 }}
-              className="glass border border-white/10 rounded-[30px] w-full max-w-5xl overflow-hidden bg-brand-surface/90 shadow-2xl relative grid grid-cols-1 lg:grid-cols-2"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Close Button */}
-              <button
-                onClick={closeModal}
-                className="absolute top-5 right-5 z-20 text-brand-muted hover:text-brand-accent transition-colors bg-brand-dark/50 p-2.5 rounded-full border border-white/10"
-                aria-label="Sluit modal"
+              <div 
+                className="opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300"
               >
-                <X className="w-5 h-5" />
-              </button>
-
-              {/* Left Column: Media Player */}
-              <div className="relative aspect-[3/4] lg:aspect-auto lg:h-[650px] bg-black flex items-center justify-center overflow-hidden">
-                {activeCase.gallery[activeMediaIndex] && (
-                  typeof activeCase.gallery[activeMediaIndex] === 'string' ? (
-                    <Image
-                      src={activeCase.gallery[activeMediaIndex] as string}
-                      alt={activeCase.title}
-                      fill
-                      unoptimized
-                      className="object-contain"
-                    />
-                  ) : (
-                    (activeCase.gallery[activeMediaIndex] as GalleryItem).type === 'video' ? (
-                      <video
-                        src={(activeCase.gallery[activeMediaIndex] as GalleryItem).src}
-                        poster={(activeCase.gallery[activeMediaIndex] as GalleryItem).thumbnail}
-                        controls
-                        autoPlay
-                        loop
-                        playsInline
-                        className="w-full h-full object-contain"
-                      />
-                    ) : (
-                      <Image
-                        src={(activeCase.gallery[activeMediaIndex] as GalleryItem).src}
-                        alt={activeCase.title}
-                        fill
-                        unoptimized
-                        className="object-contain"
-                      />
-                    )
-                  )
-                )}
-
-                {/* Media Selector (if multiple items) */}
-                {activeCase.gallery.length > 1 && (
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-                    {activeCase.gallery.map((_, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setActiveMediaIndex(idx)}
-                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                          activeMediaIndex === idx
-                            ? 'bg-brand-accent w-6'
-                            : 'bg-white/40 hover:bg-white/60'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Right Column: Case Info */}
-              <div className="p-8 sm:p-10 flex flex-col justify-between h-full max-h-[650px] overflow-y-auto">
-                <div className="space-y-6">
-                  {/* Badges */}
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-brand-accent/15 border-brand-accent/30 text-brand-accent">
-                      {activeCase.stat}
-                    </Badge>
-                    {activeCase.tags.map((tag) => (
-                      <span key={tag} className="text-xs font-semibold text-brand-muted bg-white/5 border border-white/5 px-2.5 py-1 rounded-md">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-3xl sm:text-4xl font-display font-bold text-brand-text">
-                    {activeCase.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-brand-muted text-sm sm:text-base leading-relaxed whitespace-pre-line">
-                    {activeCase.description}
-                  </p>
-                </div>
-
-                {/* Footer buttons */}
-                <div className="mt-8 flex flex-col sm:flex-row gap-4 pt-6 border-t border-white/5">
-                  {activeCase.projectLink && (
-                    <a
-                      href={activeCase.projectLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1"
-                    >
-                      <Button className="w-full text-brand-dark uppercase tracking-wider text-xs py-3.5">
-                        <span className="flex items-center justify-center gap-1.5 font-bold">
-                          Bekijk live project <ExternalLink className="w-3.5 h-3.5" />
-                        </span>
-                      </Button>
-                    </a>
-                  )}
-                  <Button variant="secondary" onClick={closeModal} className="flex-1 uppercase tracking-wider text-xs py-3.5 font-bold">
-                    Sluiten
-                  </Button>
+                <div className="inline-flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded-full text-sm font-bold">
+                  Case bekijken <ArrowRight className="w-4 h-4" />
                 </div>
               </div>
+            </div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </Link>
+
+          {/* Right Stacked Cards */}
+          <div className="w-full lg:w-1/2 flex flex-col gap-6">
+            
+            {/* Top Right Card */}
+            <Link href={topCase.projectLink || '#'} className="w-full block">
+              <motion.div 
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="relative group overflow-hidden rounded-[16px] h-[248px] w-full"
+              >
+              <Image
+                src={topCase.image}
+                alt={topCase.title}
+                fill
+                unoptimized
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                style={{ objectPosition: topCase.imagePosition || 'center' }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.85)] via-[rgba(0,0,0,0.4)] to-transparent transition-opacity duration-500 group-hover:opacity-80" />
+              
+              <div className="absolute bottom-0 left-0 w-full p-6 lg:p-8 flex flex-col items-start">
+                <div className="flex justify-between w-full items-end">
+                  <div>
+                    <span className="mb-3 block w-fit" style={{
+                      background: 'rgba(0,200,130,0.15)', border: '1px solid rgba(0,200,130,0.3)', color: '#00c882', fontSize: '11px', padding: '4px 10px', borderRadius: '20px', fontWeight: 700
+                    }}>
+                      {topCase.stat}
+                    </span>
+                    <h3 className="text-2xl font-bold text-white tracking-tight">{topCase.title}</h3>
+                  </div>
+                  
+                  <div 
+                    className="opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300"
+                  >
+                    <div className="inline-flex items-center gap-2 bg-white text-black px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap">
+                      Case bekijken
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </motion.div>
+            </Link>
+
+            {/* Bottom Right Card */}
+            <Link href={bottomCase.projectLink || '#'} className="w-full block">
+              <motion.div 
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="relative group overflow-hidden rounded-[16px] h-[248px] w-full"
+              >
+              <Image
+                src={bottomCase.image}
+                alt={bottomCase.title}
+                fill
+                unoptimized
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                style={{ objectPosition: bottomCase.imagePosition || 'center' }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.85)] via-[rgba(0,0,0,0.4)] to-transparent transition-opacity duration-500 group-hover:opacity-80" />
+              
+              <div className="absolute bottom-0 left-0 w-full p-6 lg:p-8 flex flex-col items-start">
+                <div className="flex justify-between w-full items-end">
+                  <div>
+                    <span className="mb-3 block w-fit" style={{
+                      background: 'rgba(0,200,130,0.15)', border: '1px solid rgba(0,200,130,0.3)', color: '#00c882', fontSize: '11px', padding: '4px 10px', borderRadius: '20px', fontWeight: 700
+                    }}>
+                      {bottomCase.stat}
+                    </span>
+                    <h3 className="text-2xl font-bold text-white tracking-tight">{bottomCase.title}</h3>
+                  </div>
+                  
+                  <div 
+                    className="opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300"
+                  >
+                    <div className="inline-flex items-center gap-2 bg-white text-black px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap">
+                      Case bekijken
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </motion.div>
+            </Link>
+
+          </div>
+        </div>
+
+      </div>
     </section>
   )
 }

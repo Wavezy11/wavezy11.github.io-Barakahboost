@@ -14,7 +14,7 @@ export function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
+      if (window.scrollY > 50) {
         setIsScrolled(true)
       } else {
         setIsScrolled(false)
@@ -44,10 +44,13 @@ export function Navbar() {
     <>
       <nav
         className={`fixed top-0 left-0 w-full z-40 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-brand-surface/80 border-b border-white/10 backdrop-blur-20 py-4'
-            : 'bg-transparent py-6'
+          isScrolled ? 'py-4' : 'bg-transparent py-6'
         }`}
+        style={isScrolled ? {
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          background: 'rgba(10,10,10,0.8)'
+        } : {}}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
@@ -74,11 +77,16 @@ export function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-sm font-medium transition-colors duration-200 hover:text-brand-accent ${
-                    isActive ? 'text-brand-accent' : 'text-brand-muted'
+                  className={`relative text-sm font-bold transition-colors duration-300 uppercase tracking-widest overflow-hidden group ${
+                    isActive ? 'text-brand-accent' : 'text-brand-text hover:text-brand-accent'
                   }`}
                 >
                   {link.name}
+                  <span 
+                    className={`absolute bottom-[-4px] left-0 w-full h-[2px] bg-brand-accent transform origin-left transition-transform duration-300 ${
+                      isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                    }`} 
+                  />
                 </Link>
               )
             })}
@@ -87,7 +95,7 @@ export function Navbar() {
           {/* Desktop CTA */}
           <div className="hidden lg:block">
             <Link href={isHome ? '#boek-gesprek' : '/#boek-gesprek'}>
-              <Button className="px-5 py-2.5 text-xs text-brand-dark uppercase tracking-wider font-bold">
+              <Button className="px-8 py-3.5 text-xs text-brand-dark uppercase tracking-wider font-bold">
                 Gratis gesprek boeken
               </Button>
             </Link>

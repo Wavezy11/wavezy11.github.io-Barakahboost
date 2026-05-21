@@ -41,7 +41,14 @@ export function HeroSlider() {
         }}
       />
 
-      <div className="relative w-full h-full rounded-3xl overflow-hidden glass border border-white/10">
+      <div 
+        className="relative w-full h-full overflow-hidden"
+        style={{
+          clipPath: 'polygon(0 0, 100% 5%, 100% 90%, 0 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
+          maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)'
+        }}
+      >
         <AnimatePresence mode="wait">
           <motion.div
             key={current}

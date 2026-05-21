@@ -2,33 +2,85 @@
 
 import React from 'react'
 import { CountUp } from '@/components/ui/CountUp'
+import { motion } from 'framer-motion'
 
 export function StatsBanner() {
-  const stats = [
-    { value: 7, suffix: '', title: 'Specialisten' },
-    { value: 50, suffix: '+', title: 'Projecten' },
-    { value: 30, suffix: '', title: 'Dagen' },
-    { value: 20000000, suffix: '+', title: 'Weergaven' }
-  ]
-
   return (
-    <section id="stats" className="relative py-12 z-10">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="glass border border-white/10 rounded-[20px] backdrop-blur-20 py-8 px-4 sm:px-6 md:px-12 grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-0">
-          {stats.map((stat, index) => (
-            <div 
-              key={stat.title} 
-              className="flex flex-col items-center text-center px-4 py-6 lg:py-8"
-            >
-              <h3 className="font-mono font-bold tracking-tight text-brand-gradient bg-brand-gradient bg-clip-text text-transparent mb-2 text-3xl sm:text-4xl lg:text-5xl">
-                <CountUp end={stat.value} suffix={stat.suffix} />
-              </h3>
-              <p className="text-brand-muted text-xs sm:text-sm font-semibold uppercase tracking-wider font-body">
-                {stat.title}
-              </p>
-            </div>
-          ))}
-        </div>
+    <section id="stats" className="relative py-[80px] lg:py-[120px] z-10">
+      <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col items-center text-center">
+        
+        {/* Separator line */}
+        <div className="w-full border-t border-white/[0.08] mb-16 lg:mb-24" />
+
+        {/* Coherent Stats Section */}
+        <motion.div 
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut", staggerChildren: 0.1 }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-12 w-full"
+        >
+          <motion.div 
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center"
+          >
+            <h4 className="font-display font-bold text-[40px] lg:text-[48px] text-[#00c882] mb-2 leading-none">
+              <CountUp end={7} suffix="" />
+            </h4>
+            <p className="text-[12px] uppercase tracking-[0.15em] text-white/60 font-bold">
+              Specialisten
+            </p>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center"
+          >
+            <h4 className="font-display font-bold text-[40px] lg:text-[48px] text-[#00c882] mb-2 leading-none">
+              <CountUp end={50} suffix="+" />
+            </h4>
+            <p className="text-[12px] uppercase tracking-[0.15em] text-white/60 font-bold">
+              Projecten
+            </p>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center"
+          >
+            <h4 className="font-display font-bold text-[40px] lg:text-[48px] text-[#00c882] mb-2 leading-none">
+              <CountUp end={30} suffix="" />
+            </h4>
+            <p className="text-[12px] uppercase tracking-[0.15em] text-white/60 font-bold">
+              Dagen
+            </p>
+          </motion.div>
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center"
+          >
+            <h4 className="font-display font-bold text-[40px] lg:text-[48px] text-[#00c882] mb-2 leading-none">
+              <CountUp end={20000000} suffix="+" />
+            </h4>
+            <p className="text-[12px] uppercase tracking-[0.15em] text-white/60 font-bold">
+              Weergaven
+            </p>
+          </motion.div>
+        </motion.div>
+
       </div>
     </section>
   )

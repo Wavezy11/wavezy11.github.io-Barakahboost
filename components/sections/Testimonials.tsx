@@ -1,24 +1,32 @@
 'use client'
 
 import React from 'react'
-import { Quote } from 'lucide-react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { testimonials } from '@/lib/data'
-import { GlassCard } from '@/components/ui/GlassCard'
 import { GradientText } from '@/components/ui/GradientText'
 import { fadeUp, staggerContainer } from '@/lib/animations'
 
+const getLogoForCompany = (companyName: string) => {
+  const normalized = companyName.toLowerCase().replace(/[^a-z0-9]/g, '')
+  if (normalized.includes('spaolivia')) return '/clients/spaolivia.png'
+  if (normalized.includes('systematex')) return '/clients/systematex.jpg'
+  if (normalized.includes('ziya')) return '/clients/ziyaclothing.jpeg'
+  return null
+}
+
 export function Testimonials() {
   return (
-    <section className="relative py-24 z-10">
+    <section className="relative py-[80px] lg:py-[120px] z-10">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-4xl sm:text-5xl font-display font-bold leading-tight mb-4">
+        <div className="flex flex-col items-start mb-16 lg:mb-24 w-full">
+          <span className="section-label mb-6">✦ KLANTENVERHALEN</span>
+          <h2 className="text-4xl sm:text-5xl lg:text-[64px] font-display font-bold leading-[1.1] tracking-tight mb-6">
             Wat onze <GradientText>klanten zeggen</GradientText>
           </h2>
-          <p className="text-brand-muted text-base sm:text-lg leading-relaxed">
+          <p className="text-brand-muted text-[15px] sm:text-base leading-relaxed max-w-xl">
             De resultaten spreken voor zich. Lees de ervaringen van ondernemers die met ons groeien.
           </p>
         </div>
@@ -29,40 +37,72 @@ export function Testimonials() {
           initial="initial"
           whileInView="animate"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:overflow-x-auto gap-4"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {testimonials.map((t) => (
-            <GlassCard
-              key={t.author}
-              variants={fadeUp}
-              className="p-6 flex flex-col justify-between relative bg-white/[0.01] border-white/5 w-full lg:min-w-[340px] lg:max-w-[400px] flex-shrink-0 rounded-2xl"
-            >
-              {/* Quote Mark Icon */}
-              <div className="text-brand-accent/20 absolute top-6 right-8">
-                <Quote className="w-10 h-10 fill-current" />
-              </div>
-
-              {/* Quote Body */}
-              <p className="text-brand-text text-sm sm:text-base leading-relaxed italic mb-8 relative z-10">
-                &ldquo;{t.quote}&rdquo;
-              </p>
-
-              {/* Author Details */}
-              <div className="flex items-center gap-4 border-t border-white/5 pt-6">
-                <div className="w-10 h-10 rounded-full bg-brand-gradient flex items-center justify-center text-brand-dark text-xs font-bold font-mono">
-                  {t.initials}
+          {testimonials.map((t) => {
+            const logoPath = getLogoForCompany(t.company)
+            
+            return (
+              <motion.div
+                key={t.author}
+                variants={fadeUp}
+                className="relative flex flex-col justify-between"
+                style={{
+                  background: 'rgba(255,255,255,0.03)',
+                  border: '1px solid rgba(255,255,255,0.07)',
+                  borderRadius: '16px',
+                  padding: '32px'
+                }}
+              >
+                {/* Decorative Quote */}
+                <div 
+                  className="mb-4"
+                  style={{
+                    content: '"\\201D"',
+                    fontSize: '64px',
+                    lineHeight: 1,
+                    color: 'rgba(0,200,130,0.3)',
+                    fontFamily: 'Georgia, serif',
+                    display: 'block'
+                  }}
+                >
+                  "
                 </div>
-                <div>
-                  <h4 className="text-sm font-bold text-brand-text">
-                    {t.author}
-                  </h4>
-                  <p className="text-brand-muted text-xs uppercase tracking-wider">
-                    {t.company}
-                  </p>
+
+                {/* Quote Body */}
+                <p className="text-white/80 text-[15px] leading-relaxed italic mb-8 relative z-10">
+                  {t.quote}
+                </p>
+
+                {/* Author / Company Logo */}
+                <div className="flex items-center gap-4 mt-auto">
+                  {logoPath ? (
+                    <div className="relative w-12 h-12">
+                      <Image
+                        src={logoPath}
+                        alt={t.company}
+                        fill
+                        className="object-contain"
+                        style={{ opacity: 0.9, borderRadius: '8px' }}
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center font-bold text-white/50">
+                      {t.author.charAt(0)}
+                    </div>
+                  )}
+                  <div>
+                    <h4 className="text-sm font-bold text-white">
+                      {t.author}
+                    </h4>
+                    <p className="text-[#00c882] text-xs font-bold uppercase tracking-widest mt-1">
+                      {t.company}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </GlassCard>
-          ))}
+              </motion.div>
+            )
+          })}
         </motion.div>
       </div>
     </section>

@@ -48,7 +48,7 @@ export function Footer() {
   ]
 
   return (
-    <footer className="relative bg-brand-dark border-t border-white/5 pt-20 pb-8 overflow-hidden z-10">
+    <footer className="relative bg-brand-dark border-t border-brand-accent/20 pt-12 pb-8 overflow-hidden z-10">
       {/* Background glow overlay */}
       <div 
         className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full pointer-events-none opacity-20"
@@ -56,6 +56,35 @@ export function Footer() {
           background: 'radial-gradient(ellipse at 50% 100%, rgba(62,207,178,0.15) 0%, transparent 70%)' 
         }} 
       />
+
+      {/* Pre-footer CTA */}
+      <div 
+        className="w-full relative z-10"
+        style={{ padding: '120px 0', textAlign: 'center' }}
+      >
+        <h2 
+          className="font-display font-bold leading-[1.1] mb-8 text-white"
+          style={{ fontSize: 'clamp(40px, 6vw, 80px)' }}
+        >
+          Klaar om te <span className="text-[#00c882]">groeien?</span>
+        </h2>
+        <Link href="/contact">
+          <button 
+            className="transition-transform hover:-translate-y-1"
+            style={{
+              background: '#00c882',
+              color: '#000',
+              padding: '16px 40px',
+              borderRadius: '8px',
+              fontWeight: 700,
+              fontSize: '16px',
+              display: 'inline-block'
+            }}
+          >
+            Plan een gratis gesprek →
+          </button>
+        </Link>
+      </div>
 
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-16">
         {/* Brand Column */}
@@ -157,7 +186,6 @@ export function Footer() {
       {/* Footer Bottom */}
       <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-3 pt-8 border-t border-white/10 text-center text-xs text-brand-muted">
         <p>&copy; {currentYear} BarakahBoost. Alle rechten voorbehouden.</p>
-        <p>Gemaakt met passie voor groei.</p>
       </div>
     </footer>
   )

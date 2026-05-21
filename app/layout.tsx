@@ -1,6 +1,6 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import { DM_Mono, Plus_Jakarta_Sans, Outfit } from 'next/font/google'
+import { DM_Mono, Plus_Jakarta_Sans, Syne } from 'next/font/google'
 import '@/app/globals.css'
 
 const dmMono = DM_Mono({
@@ -15,7 +15,7 @@ const satoshi = Plus_Jakarta_Sans({
   variable: '--font-satoshi',
 })
 
-const clashDisplay = Outfit({
+const clashDisplay = Syne({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800'],
   variable: '--font-clash',
@@ -84,7 +84,7 @@ export default function RootLayout({
     },
     "sameAs": [
       "https://www.instagram.com/barakahboost.nl/",
-      "https://www.tiktok.com/@barakahboost.nl",
+      "https://www.tiktok.com/@barakahboostnl",
       "https://www.linkedin.com/company/barakahboost/"
     ]
   }

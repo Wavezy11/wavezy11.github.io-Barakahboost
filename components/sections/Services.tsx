@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { Layout, Code, Share2, Sparkles, Camera, Users, TrendingUp, Search, ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { services } from '@/lib/data'
-import { GlassCard } from '@/components/ui/GlassCard'
 import { GradientText } from '@/components/ui/GradientText'
 import { fadeUp, staggerContainer } from '@/lib/animations'
 
@@ -21,57 +20,73 @@ const iconMap: Record<string, React.ComponentType<any>> = {
 }
 
 export function Services() {
-
   return (
-    <section id="services" className="relative py-24 z-10">
+    <section id="services" className="relative py-[80px] lg:py-[120px] z-10">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-4xl sm:text-5xl font-display font-bold leading-tight mb-4">
-            Onze <GradientText>diensten</GradientText>
+        <div className="flex flex-col items-start mb-16 lg:mb-24 w-full">
+          <span className="section-label mb-6">✦ DIENSTEN</span>
+          <h2 className="text-4xl sm:text-5xl lg:text-[64px] font-display font-bold leading-[1.1] tracking-tight mb-6">
+            Onze <GradientText>expertise</GradientText>
           </h2>
-          <p className="text-brand-muted text-base sm:text-lg leading-relaxed">
-            Met 8 specialistische disciplines bouwen we aan het succes en de meetbare groei van jouw merk.
+          <p className="text-brand-muted text-[15px] sm:text-base leading-relaxed max-w-xl">
+            Wij werken niet met standaard pakketjes. We zetten de exacte specialismen in die nodig zijn voor jouw specifieke groeidoelstelling.
           </p>
         </div>
 
-        {/* Services Grid */}
+        {/* 4x2 Grid */}
         <motion.div 
           variants={staggerContainer}
           initial="initial"
           whileInView="animate"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
         >
-          {services.map((service) => {
+          {services.map((service, index) => {
             const IconComponent = iconMap[service.icon] || Layout
+            
             return (
-              <GlassCard
+              <motion.div
                 key={service.id}
                 variants={fadeUp}
-                className="p-5 sm:p-6 flex flex-col gap-3 items-center text-center sm:items-start sm:text-left justify-between h-[280px] w-full motion-mobile-static"
+                className="group flex flex-col justify-between"
+                style={{
+                  background: 'rgba(255,255,255,0.03)',
+                  border: '1px solid rgba(255,255,255,0.07)',
+                  borderRadius: '12px',
+                  padding: '28px 24px',
+                  transition: 'all 0.25s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(0,200,130,0.35)';
+                  e.currentTarget.style.boxShadow = '0 0 30px rgba(0,200,130,0.08)';
+                  e.currentTarget.style.transform = 'translateY(-3px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)';
+                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
               >
-                <div className="flex flex-col items-center text-center sm:items-start sm:text-left w-full">
-                  <div className="w-12 h-12 rounded-xl bg-brand-accent/10 border border-brand-accent/20 flex items-center justify-center text-brand-accent mb-6 glow-glow">
-                    <IconComponent className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-xl font-bold font-display text-brand-text mb-2">
+                <div className="flex flex-col items-start w-full">
+                  <IconComponent className="w-[20px] h-[20px] text-[#00c882] mb-5" />
+                  <h3 className="text-[16px] font-bold text-white mb-3">
                     {service.title}
                   </h3>
-                  <p className="text-brand-muted text-sm leading-relaxed line-clamp-3">
+                  <p className="text-[13px] text-brand-muted leading-relaxed line-clamp-3">
                     {service.description}
                   </p>
                 </div>
                 
                 <Link
                   href={`/diensten/${service.slug}`}
-                  className="inline-flex items-center gap-1 text-sm font-semibold text-brand-accent hover:gap-2 transition-all mt-6 justify-center sm:justify-start"
+                  className="inline-flex items-center gap-2 text-[13px] font-bold text-[#00c882] hover:opacity-80 transition-all mt-6 w-fit"
                 >
                   <span>Meer info</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
-              </GlassCard>
+              </motion.div>
             )
           })}
         </motion.div>

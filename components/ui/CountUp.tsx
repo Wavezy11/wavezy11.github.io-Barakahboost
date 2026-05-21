@@ -7,9 +7,10 @@ interface CountUpProps {
   duration?: number
   suffix?: string
   prefix?: string
+  className?: string
 }
 
-export function CountUp({ end, duration = 1500, suffix = '', prefix = '' }: CountUpProps) {
+export function CountUp({ end, duration = 1500, suffix = '', prefix = '', className = '' }: CountUpProps) {
   const [value, setValue] = useState(0)
   const [hasAnimated, setHasAnimated] = useState(false)
   const elementRef = useRef<HTMLSpanElement>(null)
@@ -57,7 +58,7 @@ export function CountUp({ end, duration = 1500, suffix = '', prefix = '' }: Coun
   }
 
   return (
-    <span ref={elementRef} className="font-mono">
+    <span ref={elementRef} className={className}>
       {prefix}{formatNumber(value)}{suffix}
     </span>
   )

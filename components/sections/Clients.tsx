@@ -28,7 +28,7 @@ export function Clients() {
           {marqueeItems.map((client, idx) => (
             <div 
               key={`${client.name}-${idx}`} 
-              className="relative w-32 h-14 shrink-0 transition-opacity duration-300 opacity-40 hover:opacity-100 flex items-center justify-center filter brightness-100 contrast-100"
+              className="relative w-32 h-14 shrink-0 transition-opacity duration-300 opacity-50 hover:opacity-100 flex items-center justify-center"
             >
               <Image
                 src={client.logoPath}
