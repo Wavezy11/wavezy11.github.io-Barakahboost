@@ -1,109 +1,54 @@
 'use client'
 
 import React from 'react'
-import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { testimonials } from '@/lib/data'
-import { GradientText } from '@/components/ui/GradientText'
-import { fadeUp, staggerContainer } from '@/lib/animations'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 const getLogoForCompany = (companyName: string) => {
   const normalized = companyName.toLowerCase().replace(/[^a-z0-9]/g, '')
-  if (normalized.includes('spaolivia')) return '/clients/spaolivia.png'
-  if (normalized.includes('systematex')) return '/clients/systematex.jpg'
-  if (normalized.includes('ziya')) return '/clients/ziyaclothing.jpeg'
-  return null
+  if (normalized.includes('spaolivia')) return '/partners/1.png'
+  if (normalized.includes('systematex')) return '/partners/2.png'
+  if (normalized.includes('ziya')) return '/partners/3.png'
+  return '/partners/4.png' // Default logo
 }
 
 export function Testimonials() {
+  const ref = useScrollAnimation()
+
   return (
-    <section className="relative py-[80px] lg:py-[120px] z-10">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="relative py-24 lg:py-32 z-10 bg-[#0a1a14]">
+      <div className="max-w-[1160px] mx-auto px-6 w-full" ref={ref}>
         
-        {/* Section Header */}
-        <div className="flex flex-col items-start mb-16 lg:mb-24 w-full">
-          <span className="section-label mb-6">✦ KLANTENVERHALEN</span>
-          <h2 className="text-4xl sm:text-5xl lg:text-[64px] font-display font-bold leading-[1.1] tracking-tight mb-6">
-            Wat onze <GradientText>klanten zeggen</GradientText>
+        <div className="flex flex-col items-center text-center mb-16 lg:mb-20 w-full">
+          <span className="text-[#4aad73] font-bold text-xs tracking-widest uppercase mb-4">✦ Klantenverhalen</span>
+          <h2 className="text-4xl sm:text-5xl lg:text-[64px] font-bold leading-[1.1] tracking-tight text-[#f0f5f2] max-w-2xl">
+            Wat onze <span className="text-[#8aab96]">klanten zeggen.</span>
           </h2>
-          <p className="text-brand-muted text-[15px] sm:text-base leading-relaxed max-w-xl">
-            De resultaten spreken voor zich. Lees de ervaringen van ondernemers die met ons groeien.
-          </p>
         </div>
 
-        {/* Testimonials Grid */}
-        <motion.div
-          variants={staggerContainer}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {testimonials.map((t) => {
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {testimonials.map((t, index) => {
             const logoPath = getLogoForCompany(t.company)
             
             return (
-              <motion.div
-                key={t.author}
-                variants={fadeUp}
-                className="relative flex flex-col justify-between"
-                style={{
-                  background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(255,255,255,0.07)',
-                  borderRadius: '16px',
-                  padding: '32px'
-                }}
+              <div 
+                key={index} 
+                className="testimonial-card"
+                style={{ transitionDelay: `${index * 0.1}s` }}
               >
-                {/* Decorative Quote */}
-                <div 
-                  className="mb-4"
-                  style={{
-                    content: '"\\201D"',
-                    fontSize: '64px',
-                    lineHeight: 1,
-                    color: 'rgba(0,200,130,0.3)',
-                    fontFamily: 'Georgia, serif',
-                    display: 'block'
-                  }}
-                >
-                  "
-                </div>
-
-                {/* Quote Body */}
-                <p className="text-white/80 text-[15px] leading-relaxed italic mb-8 relative z-10">
-                  {t.quote}
-                </p>
-
-                {/* Author / Company Logo */}
-                <div className="flex items-center gap-4 mt-auto">
-                  {logoPath ? (
-                    <div className="relative w-12 h-12">
-                      <Image
-                        src={logoPath}
-                        alt={t.company}
-                        fill
-                        className="object-contain"
-                        style={{ opacity: 0.9, borderRadius: '8px' }}
-                      />
-                    </div>
-                  ) : (
-                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center font-bold text-white/50">
-                      {t.author.charAt(0)}
-                    </div>
-                  )}
+                <span className="testimonial-quote-mark">"</span>
+                <p className="testimonial-text">{t.quote}</p>
+                <div className="testimonial-author">
+                  <img src={logoPath} alt="Logo" className="testimonial-logo" />
                   <div>
-                    <h4 className="text-sm font-bold text-white">
-                      {t.author}
-                    </h4>
-                    <p className="text-[#00c882] text-xs font-bold uppercase tracking-widest mt-1">
-                      {t.company}
-                    </p>
+                    <div className="testimonial-author-name">{t.author}</div>
+                    <div className="testimonial-author-role">{t.company}</div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             )
           })}
-        </motion.div>
+        </div>
       </div>
     </section>
   )

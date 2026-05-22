@@ -2,11 +2,9 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { Layout, Code, Share2, Sparkles, Camera, Users, TrendingUp, Search, ArrowRight } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { Layout, Code, Share2, Sparkles, Camera, Users, TrendingUp, Search, ArrowRight, Zap } from 'lucide-react'
 import { services } from '@/lib/data'
-import { GradientText } from '@/components/ui/GradientText'
-import { fadeUp, staggerContainer } from '@/lib/animations'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 const iconMap: Record<string, React.ComponentType<any>> = {
   Layout: Layout,
@@ -20,76 +18,51 @@ const iconMap: Record<string, React.ComponentType<any>> = {
 }
 
 export function Services() {
+  const ref = useScrollAnimation()
+
   return (
-    <section id="services" className="relative py-[80px] lg:py-[120px] z-10">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="services" ref={ref} className="relative py-24 lg:py-32 z-10 bg-[#0a1a14]">
+      <div className="max-w-[1160px] mx-auto px-6 w-full">
         
-        {/* Section Header */}
-        <div className="flex flex-col items-start mb-16 lg:mb-24 w-full">
-          <span className="section-label mb-6">✦ DIENSTEN</span>
-          <h2 className="text-4xl sm:text-5xl lg:text-[64px] font-display font-bold leading-[1.1] tracking-tight mb-6">
-            Onze <GradientText>expertise</GradientText>
+        <div className="flex flex-col items-center text-center mb-16 lg:mb-20 w-full">
+          <span className="text-[#4aad73] font-bold text-xs tracking-widest uppercase mb-4">✦ Onze Expertise</span>
+          <h2 className="text-4xl sm:text-5xl lg:text-[64px] font-bold leading-[1.1] tracking-tight mb-6 text-[#f0f5f2]">
+            Alles voor <span className="text-[#8aab96]">maximale impact.</span>
           </h2>
-          <p className="text-brand-muted text-[15px] sm:text-base leading-relaxed max-w-xl">
-            Wij werken niet met standaard pakketjes. We zetten de exacte specialismen in die nodig zijn voor jouw specifieke groeidoelstelling.
-          </p>
         </div>
 
-        {/* 4x2 Grid */}
-        <motion.div 
-          variants={staggerContainer}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
-        >
-          {services.map((service, index) => {
+        {/* 1. BarakahLaunch Featured Block (volle breedte) bovenaan */}
+        <div className="barakahlaunch-featured">
+          <div>
+            <div className="barakahlaunch-badge">Populairste Keuze</div>
+            <h3 className="barakahlaunch-title">BarakahLaunch</h3>
+            <p className="barakahlaunch-desc">
+              Ons flagship programma. Binnen 30 dagen een complete, hoog-converterende online aanwezigheid inclusief brand identity, website en content strategie.
+            </p>
+            <Link href="#contact" className="barakahlaunch-cta">Start je Launch →</Link>
+          </div>
+          <div className="hidden lg:flex relative h-full min-h-[240px] items-center justify-center">
+            <div className="absolute inset-0 bg-[#4aad73]/10 rounded-full blur-3xl mix-blend-screen"></div>
+            <Zap className="w-32 h-32 text-[#4aad73] opacity-80" />
+          </div>
+        </div>
+
+        {/* 2. Overige diensten in een 3-kolom grid */}
+        <div className="services-grid mt-12">
+          {services.map((service, i) => {
             const IconComponent = iconMap[service.icon] || Layout
-            
             return (
-              <motion.div
-                key={service.id}
-                variants={fadeUp}
-                className="group flex flex-col justify-between"
-                style={{
-                  background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(255,255,255,0.07)',
-                  borderRadius: '12px',
-                  padding: '28px 24px',
-                  transition: 'all 0.25s ease',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(0,200,130,0.35)';
-                  e.currentTarget.style.boxShadow = '0 0 30px rgba(0,200,130,0.08)';
-                  e.currentTarget.style.transform = 'translateY(-3px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)';
-                  e.currentTarget.style.boxShadow = 'none';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                <div className="flex flex-col items-start w-full">
-                  <IconComponent className="w-[20px] h-[20px] text-[#00c882] mb-5" />
-                  <h3 className="text-[16px] font-bold text-white mb-3">
-                    {service.title}
-                  </h3>
-                  <p className="text-[13px] text-brand-muted leading-relaxed line-clamp-3">
-                    {service.description}
-                  </p>
+              <div key={i} className="service-card" style={{ transitionDelay: `${i * 0.1}s` }}>
+                <div className="service-card-icon">
+                  <IconComponent className="w-full h-full" />
                 </div>
-                
-                <Link
-                  href={`/diensten/${service.slug}`}
-                  className="inline-flex items-center gap-2 text-[13px] font-bold text-[#00c882] hover:opacity-80 transition-all mt-6 w-fit"
-                >
-                  <span>Meer info</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </motion.div>
+                <h4 className="service-card-title">{service.title}</h4>
+                <p className="service-card-desc">{service.description}</p>
+              </div>
             )
           })}
-        </motion.div>
+        </div>
+
       </div>
     </section>
   )

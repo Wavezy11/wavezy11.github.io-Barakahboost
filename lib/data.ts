@@ -58,7 +58,7 @@ export const cases: CaseStudy[] = [
     gallery: [
       {
         type: "video",
-        src: "/videos/Recap-Abu Taymiyyah event.mp4",
+        src: "/videos/Recap-Abu%20Taymiyyah%20event.mp4",
         isVertical: true,
         thumbnail: "/portfolio/abu-taymiyyah/hero-edit.jpg",
       },
@@ -97,6 +97,18 @@ export const cases: CaseStudy[] = [
       { type: "image", src: "/portfolio/liv-zorg/verticale-foto.jpg", isVertical: true }
     ],
     imagePosition: "right center"
+  },
+  {
+    id: "sparks-design",
+    title: "Premium Webdesign voor Sparks",
+    shortDescription: "Complete redesign en ontwikkeling in Next.js voor maximale conversie en een premium uitstraling.",
+    description: "Voor deze case hebben we het volledige platform vanaf de grond opnieuw opgebouwd. Het doel was een naadloze, snelle gebruikerservaring met een uiterst luxe uitstraling. Met behulp van moderne animaties en strakke asymmetrische layouts is het merk naar een hoger niveau getild.",
+    image: "/portfolio/liv-zorg/main-foto.jpg", // placeholder, you can swap it
+    tags: ["Webdesign", "Development", "Branding"],
+    stat: "120% conversiestijging",
+    isVertical: false,
+    gallery: ["/portfolio/liv-zorg/main-foto.jpg"],
+    imagePosition: "center"
   }
 ];
 

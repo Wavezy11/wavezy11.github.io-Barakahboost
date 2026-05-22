@@ -23,9 +23,8 @@ const config: Config = {
         }
       },
       fontFamily: {
-        display: ['var(--font-clash)', 'sans-serif'],
-        body:    ['var(--font-satoshi)', 'sans-serif'],
-        mono:    ['var(--font-dm-mono)', 'monospace'],
+        display: ['var(--font-outfit)', 'sans-serif'],
+        sans:    ['var(--font-outfit)', 'sans-serif'],
       },
       backgroundImage: {
         'brand-gradient': 'linear-gradient(135deg, #a8c5b8 0%, #2d7d6f 40%, #0a3d35 100%)',

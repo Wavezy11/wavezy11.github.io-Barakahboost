@@ -60,7 +60,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="relative py-24 z-10">
+    <section id="contact-form" className="relative py-24 z-10">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
         
         {/* Left Column: Contact details */}

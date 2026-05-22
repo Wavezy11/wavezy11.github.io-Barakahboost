@@ -6,7 +6,7 @@ export function WhatsAppButton() {
       href={`https://wa.me/${process.env.NEXT_PUBLIC_CONTACT_PHONE_WHATSAPP || "31685546310"}?text=Hallo%20BarakahBoost%2C%20ik%20wil%20graag%20meer%20informatie.`}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-[#25D366] text-white px-4 py-3 rounded-full shadow-lg hover:shadow-green-500/30 hover:scale-105 active:scale-95 transition-all duration-300 font-medium text-sm"
+      className="fixed bottom-6 right-6 z-[90] flex items-center gap-2 bg-[#2d7a4f] text-[#f0f5f2] px-5 py-3.5 rounded-full shadow-lg hover:shadow-[0_0_20px_rgba(45,122,79,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 font-bold text-sm tracking-wide"
       aria-label="Contact us on WhatsApp"
     >
       <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

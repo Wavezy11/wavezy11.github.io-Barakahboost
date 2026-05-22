@@ -1,123 +1,64 @@
 'use client'
 
-import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { GradientText } from '@/components/ui/GradientText'
+import React from 'react'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 const steps = [
   {
-    id: '01',
-    title: 'Bedenken',
-    desc: 'Wij bedenken een succesvol concept dat perfect aansluit bij jouw merk en doelgroep. Geen half werk, maar strategische positionering. We analyseren je concurrenten en vinden de gaten in de markt.'
+    title: 'Strategie & Concept',
+    description: 'Geen aannames. We analyseren je markt en bouwen een ijzersterke blauwdruk voor je merk.'
   },
   {
-    id: '02',
-    title: 'Filmen',
-    desc: 'Wij filmen jouw shortform of corporate video met professionele high-end apparatuur. Cinematografische kwaliteit gegarandeerd. Onze in-house regisseurs zorgen voor de perfecte belichting en audio.'
+    title: 'Creatie & Ontwerp',
+    description: 'Van premium webdesign tot high-end videografie. We creëren assets die je concurrentie wegblazen.'
   },
   {
-    id: '03',
-    title: 'Editen',
-    desc: 'Wij editen de video tot perfectie met moderne effecten en pakkende storytelling om retentie te maximaliseren. Van sounddesign tot color grading, alles wordt tot in de puntjes verzorgd.'
-  },
-  {
-    id: '04',
-    title: 'Beheren',
-    desc: 'Wij beheren jouw social media accounts en optimaliseren voor maximaal reach en de conversie van kijkers naar klanten. We reageren op comments en bouwen een actieve community rond je merk.'
+    title: 'Groei & Opschalen',
+    description: 'We lanceren je campagnes, beheren je kanalen en sturen 100% op ROI en schaalbaarheid.'
   }
 ]
 
 export function HowWeWork() {
-  const [activeStep, setActiveStep] = useState(0)
+  const ref = useScrollAnimation()
 
   return (
-    <section id="how-we-work" className="relative py-[80px] lg:py-[120px] z-10 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="how-we-work" ref={ref} className="relative py-24 lg:py-32 z-10 bg-[#0f2318]">
+      <div className="max-w-[1160px] mx-auto px-6 w-full">
         
-        {/* Section Header */}
-        <div className="mb-16 lg:mb-24 flex flex-col items-start w-full">
-          <span className="section-label mb-6">✦ WERKWIJZE</span>
-          <h2 className="text-4xl sm:text-5xl lg:text-[64px] font-display font-bold leading-[1.1] tracking-tight text-white mb-6">
-            Hoe wij <GradientText>te werk gaan</GradientText>
+        <div className="flex flex-col items-center text-center mb-16 lg:mb-20 w-full">
+          <span className="text-[#4aad73] font-bold text-xs tracking-widest uppercase mb-4">✦ Werkwijze</span>
+          <h2 className="text-4xl sm:text-5xl lg:text-[64px] font-bold leading-[1.1] tracking-tight text-[#f0f5f2] max-w-2xl">
+            Snel, transparant en <span className="text-[#8aab96]">bizar effectief.</span>
           </h2>
         </div>
 
-        {/* Desktop: Horizontal Tabs */}
-        <div className="hidden md:flex flex-col relative min-h-[400px]">
-          
-          {/* Tabs */}
-          <div className="flex gap-4 mb-16 border-b border-white/[0.08] pb-4">
-            {steps.map((step, idx) => {
-              const isActive = activeStep === idx
-              return (
-                <button
-                  key={step.id}
-                  onClick={() => setActiveStep(idx)}
-                  className={`px-6 py-3 rounded-full font-bold text-sm tracking-widest uppercase transition-all duration-300 ${
-                    isActive 
-                      ? 'bg-[#00c882] text-black shadow-[0_0_20px_rgba(0,200,130,0.3)]' 
-                      : 'text-white/50 hover:text-white hover:bg-white/5'
-                  }`}
-                >
-                  {step.id} {step.title}
-                </button>
-              )
-            })}
-          </div>
-
-          {/* Tab Content */}
-          <div className="relative flex-grow flex items-center">
-            {/* Massive Background Number */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none overflow-hidden">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeStep}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.1 }}
-                  transition={{ duration: 0.5 }}
-                  className="text-[300px] font-display font-black text-[#00c882]/5 leading-none"
-                >
-                  {steps[activeStep].id}
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeStep}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-                className="max-w-2xl relative z-10 pl-8 border-l-4 border-[#00c882]"
-              >
-                <h3 className="text-3xl font-bold text-white mb-4">{steps[activeStep].title}</h3>
-                <p className="text-lg text-brand-muted leading-relaxed">
-                  {steps[activeStep].desc}
-                </p>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </div>
-
-        {/* Mobile: Vertical Stepper */}
-        <div className="md:hidden flex flex-col gap-12 relative">
-          <div className="absolute left-[28px] top-0 bottom-0 w-[2px] bg-white/[0.08]" />
-          
-          {steps.map((step, idx) => (
-            <div key={step.id} className="flex gap-6 relative z-10">
-              <div className="w-[56px] h-[56px] rounded-full bg-[#071412] border border-[#00c882] flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(0,200,130,0.2)]">
-                <span className="font-bold text-[#00c882]">{step.id}</span>
-              </div>
-              <div className="pt-3">
-                <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
-                <p className="text-[14px] text-brand-muted leading-relaxed">
-                  {step.desc}
-                </p>
-              </div>
+        {/* Steps Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {steps.map((step, index) => (
+            <div key={index} className="process-step" style={{ transitionDelay: `${index * 0.1}s` }}>
+              <div className="process-step-number">0{index + 1}</div>
+              <h4 className="process-step-title">{step.title}</h4>
+              <p className="process-step-desc">{step.description}</p>
             </div>
           ))}
+        </div>
+
+        {/* BarakahLaunch Feature Box */}
+        <div className="process-feature-box mt-12" style={{ transitionDelay: '0.4s' }}>
+          <div>
+            <span className="barakahlaunch-badge">BarakahLaunch Programma</span>
+            <h3>Liever alles in één keer geregeld?</h3>
+            <p>Ons signature 30-dagen programma pakt alles tegelijk aan. Van complete rebranding tot een nieuwe website en je eerste marketing funnel.</p>
+          </div>
+          <div>
+            <h4>Wat je krijgt:</h4>
+            <ul>
+              <li>Complete merkstrategie & identiteit</li>
+              <li>High-performance webshop of website</li>
+              <li>Social media content playbook</li>
+              <li>Klaar om te schalen binnen 4 weken</li>
+            </ul>
+          </div>
         </div>
 
       </div>

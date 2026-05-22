@@ -2,102 +2,117 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
-import { Button } from '@/components/ui/Button'
-import { GradientText } from '@/components/ui/GradientText'
-import { fadeUp, staggerContainer } from '@/lib/animations'
-import { ChevronDown } from 'lucide-react'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 export function Hero() {
+  const ref = useScrollAnimation()
+
   return (
-    <section className="relative w-full min-h-[100dvh] flex flex-col justify-center pt-32 lg:pt-40 pb-16 px-6">
-      {/* Background Glow */}
-      <div 
-        className="absolute inset-0 pointer-events-none -z-10"
-        style={{ background: 'radial-gradient(ellipse 60% 50% at 70% 50%, rgba(0,200,130,0.07) 0%, transparent 70%)' }}
-      />
-      
-      <div className="max-w-7xl mx-auto w-full z-20 flex flex-col lg:flex-row items-center gap-16 lg:gap-24 relative">
+    <section ref={ref} className="relative w-full min-h-[100dvh] flex items-center pt-28 lg:pt-32 pb-16 px-6 overflow-hidden">
+      <div className="max-w-[1160px] mx-auto w-full z-20 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
+        
         {/* Left: Text Content */}
-        <motion.div
-          variants={staggerContainer}
-          initial="initial"
-          animate="animate"
-          className="flex flex-col gap-6 lg:gap-8 w-full lg:w-1/2"
-        >
-          <motion.div variants={fadeUp} className="overflow-visible">
-            <h1 className="font-display font-bold text-6xl sm:text-7xl md:text-8xl lg:text-[100px] leading-[0.9] tracking-tighter text-white">
-              Groei die<br />
-              <GradientText>resultaten</GradientText><br />
-              levert.
+        <div className="flex flex-col items-start w-full lg:w-[55%]">
+          {/* Urgency Badge */}
+          <div className="mb-8" style={{ transitionDelay: '0s', transition: 'opacity 0.7s ease, transform 0.7s ease' }}>
+            <div className="inline-flex items-center gap-3 bg-[#0f2318] border border-[#2d7a4f]/30 px-4 py-2 rounded-full">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4aad73] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#4aad73]"></span>
+              </span>
+              <span className="text-xs font-bold uppercase tracking-wider text-[#4aad73]">
+                3 BOOSTS BESCHIKBAAR
+              </span>
+            </div>
+          </div>
+
+          {/* Headline */}
+          <div style={{ transitionDelay: '0.1s', transition: 'opacity 0.7s ease, transform 0.7s ease' }}>
+            <h1 
+              className="font-bold text-[#f0f5f2] leading-[1.05] tracking-tight mb-6"
+              style={{ fontSize: 'clamp(48px, 6vw, 84px)', letterSpacing: '-0.02em' }}
+            >
+              Jouw partner <br/> in groei.
             </h1>
-          </motion.div>
+          </div>
 
-          <motion.p
-            variants={fadeUp}
-            className="text-brand-muted text-lg sm:text-xl max-w-lg leading-relaxed font-body mt-2"
+          {/* Subtext */}
+          <p
+            style={{ transitionDelay: '0.2s', transition: 'opacity 0.7s ease, transform 0.7s ease' }}
+            className="text-[#8aab96] text-[17px] leading-[1.6] max-w-[480px] mb-10"
           >
-            Wij zijn jouw partner in exponentiële groei. Van high-end videografie tot schaalbare social strategieën. Binnen 30 dagen live.
-          </motion.p>
+            Wij zijn niet zomaar een bureau, wij zijn de motor achter jouw merk. 
+            Van killer content tot schaalbare strategieën. Binnen 30 dagen live.
+          </p>
 
-          <motion.div
-            variants={fadeUp}
-            className="flex flex-col sm:flex-row gap-4 mt-6"
+          {/* CTAs */}
+          <div
+            style={{ transitionDelay: '0.3s', transition: 'opacity 0.7s ease, transform 0.7s ease' }}
+            className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-12"
           >
-            <Link href="#boek-gesprek">
-              <Button className="w-full sm:w-auto px-10 py-4 uppercase text-sm tracking-widest font-bold text-brand-dark bg-[#00c882] hover:bg-[#00b070] border-none">
-                Start jouw groei
-              </Button>
+            <Link 
+              href="#contact"
+              className="bg-[#2d7a4f] text-white px-8 py-4 rounded-md font-bold text-[15px] hover:bg-[#4aad73] transition-colors text-center shadow-[0_0_20px_rgba(45,122,79,0.3)]"
+            >
+              Plan een gratis gesprek
             </Link>
-            <Link href="/portfolio">
-              <Button variant="secondary" className="w-full sm:w-auto px-10 py-4 uppercase text-sm tracking-widest font-bold backdrop-blur-md">
-                Bekijk ons werk
-              </Button>
+            <Link 
+              href="#portfolio"
+              className="bg-[#0f2318] text-[#f0f5f2] border border-white/10 px-8 py-4 rounded-md font-bold text-[15px] hover:bg-white/5 transition-colors text-center"
+            >
+              Bekijk cases
             </Link>
-          </motion.div>
-        </motion.div>
+          </div>
 
-        {/* Right: Video Content */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="w-full lg:w-1/2 relative"
-        >
+          {/* Social Proof (FIX 2) */}
           <div 
-            className="w-full aspect-[4/5] lg:aspect-square relative overflow-hidden"
-            style={{ 
-              borderRadius: '16px', 
-              boxShadow: '0 0 60px rgba(0, 200, 130, 0.15)' 
-            }}
+            className="hero-social-proof"
+            style={{ transitionDelay: '0.4s', transition: 'opacity 0.7s ease, transform 0.7s ease' }}
           >
+            <div className="hero-social-proof-logos">
+              <img src="/partners/1.png" alt="Client 1" />
+              <img src="/partners/2.png" alt="Client 2" />
+              <img src="/partners/3.png" alt="Client 3" />
+              <img src="/partners/4.png" alt="Client 4" />
+            </div>
+            <div>
+              <div className="hero-social-proof-stars">★★★★★</div>
+              <div className="hero-social-proof-text">
+                Vertrouwd door <strong>25+ merken</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right: Video/Visual (FIX 1) */}
+        <div 
+          className="w-full lg:w-[45%] relative"
+          style={{ transitionDelay: '0.2s', transition: 'opacity 0.8s ease, transform 0.8s ease' }}
+        >
+          {/* Ambient Glow */}
+          <div className="hero-image-glow"></div>
+          
+          {/* Container with styling & overlays */}
+          <div className="hero-image-container aspect-[4/5] w-full">
             <video 
               autoPlay 
               muted 
               loop 
               playsInline
-              className="absolute inset-0 w-full h-full object-cover"
+              className="w-full h-full object-cover"
               src="/videos/Recap-Abu%20Taymiyyah%20event.mp4"
             />
+            
+            {/* Floating label inside video */}
+            <div className="absolute bottom-6 left-6 z-20">
+              <div className="bg-black/40 backdrop-blur-md border border-white/10 text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+                Abu Tayyimah Event
+              </div>
+            </div>
           </div>
-        </motion.div>
-      </div>
+        </div>
 
-      {/* Scroll Indicator */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-      >
-        <span className="text-[10px] uppercase tracking-[0.2em] text-brand-muted">Scroll</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <ChevronDown className="w-4 h-4 text-[#00c882] opacity-70" />
-        </motion.div>
-      </motion.div>
+      </div>
     </section>
   )
 }
