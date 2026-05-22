@@ -2,7 +2,6 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { Phone, Mail, MapPin, Building } from 'lucide-react'
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -37,10 +36,10 @@ export function Footer() {
     }
   ]
 
-  const links = [
+  const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'Diensten', href: '/diensten' },
-    { name: 'Portfolio', href: '/portfolio' },
+    { name: 'Portfolio', href: '/#portfolio' },
     { name: 'BarakahLaunch', href: '/barakahlaunch' },
     { name: 'Over Ons', href: '/over-ons' },
     { name: 'FAQ', href: '/faq' },
@@ -48,38 +47,33 @@ export function Footer() {
   ]
 
   return (
-    <footer className="relative bg-brand-dark border-t border-white/5 pt-20 pb-8 overflow-hidden z-10">
-      {/* Background glow overlay */}
-      <div 
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full pointer-events-none opacity-20"
-        style={{ 
-          background: 'radial-gradient(ellipse at 50% 100%, rgba(62,207,178,0.15) 0%, transparent 70%)' 
-        }} 
-      />
-
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-16">
+    <footer className="relative bg-[#0a1a14] border-t border-white/5 pt-16 pb-8 overflow-hidden z-10">
+      
+      {/* Main Footer Links */}
+      <div className="max-w-[1160px] mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-white/5 items-start">
+        
         {/* Brand Column */}
-        <div className="space-y-6 flex flex-col items-center text-center md:items-start md:text-left">
-          <Link href="/" className="flex items-center gap-3 justify-center sm:justify-start">
-            <svg className="w-8 h-8 animate-glow-pulse" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M42 74L42 42L33 48L50 25L59 34L54 39L54 52L42 74Z" fill="white" />
-              <path d="M43 73L54 51L64 37L53 59L43 73Z" fill="white" />
+        <div className="flex flex-col items-start text-left gap-4">
+          <Link href="/" className="flex items-center gap-3 group">
+            <svg className="w-8 h-8 transition-transform duration-300 group-hover:scale-105" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M42 74L42 42L33 48L50 25L59 34L54 39L54 52L42 74Z" fill="#f0f5f2" />
+              <path d="M43 73L54 51L64 37L53 59L43 73Z" fill="#f0f5f2" />
             </svg>
-            <span className="text-xl font-bold text-brand-gradient bg-brand-gradient bg-clip-text text-transparent">
+            <span className="text-xl font-bold tracking-tight text-[#f0f5f2]">
               BarakahBoost
             </span>
           </Link>
-          <p className="text-brand-muted text-sm max-w-xs leading-relaxed">
+          <p className="text-[#8aab96] text-[14px] leading-relaxed max-w-xs">
             Wij zijn niet het bureau dat je inschakelt — wij zijn jouw partner in groei. Van strategie tot uitvoering. Binnen 30 dagen live.
           </p>
-          <div className="flex items-center gap-4 text-brand-muted">
+          <div className="flex items-center gap-5 text-[#8aab96] mt-2">
             {socialLinks.map((social) => (
               <a
                 key={social.name}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-brand-accent transition-colors duration-200"
+                className="hover:text-[#4aad73] transition-colors duration-200"
                 aria-label={social.name}
               >
                 {social.icon}
@@ -88,15 +82,15 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Quick Links Column */}
-        <div className="space-y-6 flex flex-col items-center text-center md:items-start md:text-left">
-          <h4 className="text-brand-text font-semibold uppercase tracking-wider text-sm">Navigatie</h4>
-          <ul className="space-y-3 flex flex-col items-center md:items-start">
-            {links.map((link) => (
+        {/* Navigation Column */}
+        <div className="flex flex-col items-start text-left">
+          <h4 className="text-[#f0f5f2] font-semibold text-[15px] mb-4">Navigatie</h4>
+          <ul className="space-y-3">
+            {navLinks.map((link) => (
               <li key={link.name}>
                 <Link
                   href={link.href}
-                  className="text-brand-muted hover:text-brand-accent text-sm transition-colors duration-200"
+                  className="text-[#8aab96] hover:text-[#4aad73] text-[15px] transition-colors duration-200"
                 >
                   {link.name}
                 </Link>
@@ -105,59 +99,53 @@ export function Footer() {
           </ul>
         </div>
 
-        {/* Contact info Column */}
-        <div className="space-y-6 flex flex-col items-center text-center md:items-start md:text-left">
-          <h4 className="text-brand-text font-semibold uppercase tracking-wider text-sm">Contactgegevens</h4>
-          <ul className="space-y-4 flex flex-col items-center md:items-start">
-            <li className="flex items-center gap-3 text-sm text-brand-muted">
-              <Mail className="w-5 h-5 text-brand-accent shrink-0" />
-              <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@barakahboost.nl"}`} className="hover:text-brand-accent transition-colors">
+        {/* Contactgegevens Column */}
+        <div className="flex flex-col items-start text-left">
+          <h4 className="text-[#f0f5f2] font-semibold text-[15px] mb-4">Contactgegevens</h4>
+          <ul className="space-y-3">
+            <li>
+              <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@barakahboost.nl"}`} className="text-[#8aab96] hover:text-[#4aad73] text-[15px] transition-colors duration-200">
                 {process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@barakahboost.nl"}
               </a>
             </li>
-            <li className="flex items-center gap-3 text-sm text-brand-muted">
-              <Phone className="w-5 h-5 text-brand-accent shrink-0" />
-              <a href={`tel:${process.env.NEXT_PUBLIC_CONTACT_PHONE_RAW || "+31685546310"}`} className="hover:text-brand-accent transition-colors">
+            <li>
+              <a href={`tel:${process.env.NEXT_PUBLIC_CONTACT_PHONE_RAW || "+31685546310"}`} className="text-[#8aab96] hover:text-[#4aad73] text-[15px] transition-colors duration-200">
                 {process.env.NEXT_PUBLIC_CONTACT_PHONE || "+31 6 85546310"}
               </a>
             </li>
-            <li className="flex items-center gap-3 text-sm text-brand-muted">
-              <Building className="w-5 h-5 text-brand-accent shrink-0" />
-              <span>KVK: {process.env.NEXT_PUBLIC_CONTACT_KVK || "65461916"}</span>
+            <li className="text-[#8aab96] text-[15px]">
+              KVK: {process.env.NEXT_PUBLIC_CONTACT_KVK || "65461916"}
             </li>
           </ul>
         </div>
 
-        {/* Location / Address Column */}
-        <div className="space-y-6 flex flex-col items-center text-center md:items-start md:text-left">
-          <h4 className="text-brand-text font-semibold uppercase tracking-wider text-sm">Kantoor</h4>
-          <ul className="space-y-4 flex flex-col items-center md:items-start">
-            <li className="flex items-start gap-3 text-sm text-brand-muted leading-relaxed">
-              <MapPin className="w-5 h-5 text-brand-accent shrink-0" />
-              <span>
-                {process.env.NEXT_PUBLIC_CONTACT_ADDRESS_STREET || "Parkweg 226 B"},<br />
-                {process.env.NEXT_PUBLIC_CONTACT_ADDRESS_CITY || "3119 CR Schiedam"}
-              </span>
+        {/* Kantoor Column */}
+        <div className="flex flex-col items-start text-left">
+          <h4 className="text-[#f0f5f2] font-semibold text-[15px] mb-4">Kantoor</h4>
+          <ul className="space-y-3">
+            <li className="text-[#8aab96] text-[15px] leading-relaxed">
+              {process.env.NEXT_PUBLIC_CONTACT_ADDRESS_STREET || "Parkweg 226 B"},<br />
+              {process.env.NEXT_PUBLIC_CONTACT_ADDRESS_CITY || "3119 CR Schiedam"}
             </li>
-            <li className="pt-2">
+            <li className="pt-1">
               <a
-                href={`https://wa.me/${process.env.NEXT_PUBLIC_CONTACT_PHONE_WHATSAPP || "31685546310"}`}
+                href={`https://wa.me/${process.env.NEXT_PUBLIC_CONTACT_PHONE_WHATSAPP || "31685546310"}?text=Hallo%20BarakahBoost`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/30 text-[#25D366] px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300"
+                className="inline-flex items-center gap-1.5 text-[#4aad73] font-semibold text-[15px] hover:text-white transition-colors duration-200"
               >
-                <span>Stuur ons een appje</span>
-                <span>→</span>
+                Stuur ons een appje →
               </a>
             </li>
           </ul>
         </div>
+
       </div>
 
       {/* Footer Bottom */}
-      <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-3 pt-8 border-t border-white/10 text-center text-xs text-brand-muted">
+      <div className="max-w-[1160px] mx-auto px-6 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left text-[13px] text-[#8aab96]">
         <p>&copy; {currentYear} BarakahBoost. Alle rechten voorbehouden.</p>
-        <p>Gemaakt met passie voor groei.</p>
+        <p>KVK: {process.env.NEXT_PUBLIC_CONTACT_KVK || "65461916"}</p>
       </div>
     </footer>
   )

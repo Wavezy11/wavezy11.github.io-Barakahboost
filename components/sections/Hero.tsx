@@ -2,81 +2,117 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { ChevronDown } from 'lucide-react'
-import { motion } from 'framer-motion'
-import { Button } from '@/components/ui/Button'
-import { GradientText } from '@/components/ui/GradientText'
-import { fadeUp, staggerContainer } from '@/lib/animations'
-import { HeroSlider } from '@/components/ui/HeroSlider'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 export function Hero() {
+  const ref = useScrollAnimation()
 
   return (
-    <section className="relative flex flex-col lg:flex-row items-center justify-start lg:justify-center px-4 sm:px-6 lg:px-8 pt-32 pb-16 lg:pt-0 lg:min-h-[100dvh] gap-8 lg:gap-16">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center w-full z-10">
+    <section ref={ref} className="relative w-full min-h-[100dvh] flex items-center pt-28 lg:pt-32 pb-16 px-6 overflow-hidden">
+      <div className="max-w-[1160px] mx-auto w-full z-20 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
         
-        {/* Left: Text & CTAs */}
-        <motion.div
-          variants={staggerContainer}
-          initial="initial"
-          animate="animate"
-          className="flex flex-col gap-5 sm:gap-6 text-center lg:text-left items-center lg:items-start"
-        >
-          <motion.h1
-            variants={fadeUp}
-            className="font-display font-bold leading-[1.05] text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
-          >
-            Groei die<br />
-            <GradientText>resultaten</GradientText><br />
-            levert.
-          </motion.h1>
+        {/* Left: Text Content */}
+        <div className="flex flex-col items-start w-full lg:w-[55%]">
+          {/* Urgency Badge */}
+          <div className="mb-8" style={{ transitionDelay: '0s', transition: 'opacity 0.7s ease, transform 0.7s ease' }}>
+            <div className="inline-flex items-center gap-3 bg-[#0f2318] border border-[#2d7a4f]/30 px-4 py-2 rounded-full">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4aad73] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#4aad73]"></span>
+              </span>
+              <span className="text-xs font-bold uppercase tracking-wider text-[#4aad73]">
+                3 BOOSTS BESCHIKBAAR
+              </span>
+            </div>
+          </div>
 
-          <motion.p
-            variants={fadeUp}
-            className="text-brand-muted text-base sm:text-lg md:text-xl max-w-xl leading-relaxed font-body mx-auto lg:mx-0"
-          >
-            Wij zijn niet het bureau dat je inschakelt — wij zijn jouw partner in groei. Van strategie tot uitvoering. Binnen 30 dagen live.
-          </motion.p>
+          {/* Headline */}
+          <div style={{ transitionDelay: '0.1s', transition: 'opacity 0.7s ease, transform 0.7s ease' }}>
+            <h1 
+              className="font-bold text-[#f0f5f2] leading-[1.05] tracking-tight mb-6"
+              style={{ fontSize: 'clamp(48px, 6vw, 84px)', letterSpacing: '-0.02em' }}
+            >
+              Jouw partner <br/> in groei.
+            </h1>
+          </div>
 
-          <motion.div
-            variants={fadeUp}
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full max-w-xs sm:max-w-none sm:w-auto items-center justify-center lg:justify-start mt-2"
+          {/* Subtext */}
+          <p
+            style={{ transitionDelay: '0.2s', transition: 'opacity 0.7s ease, transform 0.7s ease' }}
+            className="text-[#8aab96] text-[17px] leading-[1.6] max-w-[480px] mb-10"
           >
-            <Link href="#boek-gesprek" className="w-full sm:w-auto">
-              <Button className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 uppercase text-xs tracking-wider font-bold text-brand-dark">
-                Start jouw groei &rarr;
-              </Button>
+            Wij zijn niet zomaar een bureau, wij zijn de motor achter jouw merk. 
+            Van killer content tot schaalbare strategieën. Binnen 30 dagen live.
+          </p>
+
+          {/* CTAs */}
+          <div
+            style={{ transitionDelay: '0.3s', transition: 'opacity 0.7s ease, transform 0.7s ease' }}
+            className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-12"
+          >
+            <Link 
+              href="#contact"
+              className="bg-[#2d7a4f] text-white px-8 py-4 rounded-md font-bold text-[15px] hover:bg-[#4aad73] transition-colors text-center shadow-[0_0_20px_rgba(45,122,79,0.3)]"
+            >
+              Plan een gratis gesprek
             </Link>
-            <Link href="/portfolio" className="w-full sm:w-auto">
-              <Button variant="secondary" className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 uppercase text-xs tracking-wider font-bold">
-                Bekijk ons werk
-              </Button>
+            <Link 
+              href="#portfolio"
+              className="bg-[#0f2318] text-[#f0f5f2] border border-white/10 px-8 py-4 rounded-md font-bold text-[15px] hover:bg-white/5 transition-colors text-center"
+            >
+              Bekijk cases
             </Link>
-          </motion.div>
-        </motion.div>
+          </div>
 
-        {/* Right: Slider */}
-        <div className="w-full max-w-[280px] sm:max-w-[320px] lg:max-w-[400px] mx-auto aspect-[4/5] lg:aspect-auto lg:h-[460px]">
-          <HeroSlider />
+          {/* Social Proof (FIX 2) */}
+          <div 
+            className="hero-social-proof"
+            style={{ transitionDelay: '0.4s', transition: 'opacity 0.7s ease, transform 0.7s ease' }}
+          >
+            <div className="hero-social-proof-logos">
+              <img src="/partners/1.png" alt="Client 1" />
+              <img src="/partners/2.png" alt="Client 2" />
+              <img src="/partners/3.png" alt="Client 3" />
+              <img src="/partners/4.png" alt="Client 4" />
+            </div>
+            <div>
+              <div className="hero-social-proof-stars">★★★★★</div>
+              <div className="hero-social-proof-text">
+                Vertrouwd door <strong>25+ merken</strong>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* Scroll indicator */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2 cursor-pointer z-10"
-        onClick={() => document.getElementById('stats')?.scrollIntoView({ behavior: 'smooth' })}
-      >
-        <span className="text-[10px] uppercase tracking-widest text-brand-muted font-bold font-mono">Scroll naar beneden</span>
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+        {/* Right: Video/Visual (FIX 1) */}
+        <div 
+          className="w-full lg:w-[45%] relative"
+          style={{ transitionDelay: '0.2s', transition: 'opacity 0.8s ease, transform 0.8s ease' }}
         >
-          <ChevronDown className="w-5 h-5 text-brand-accent" />
-        </motion.div>
-      </motion.div>
+          {/* Ambient Glow */}
+          <div className="hero-image-glow"></div>
+          
+          {/* Container with styling & overlays */}
+          <div className="hero-image-container aspect-[4/5] w-full">
+            <video 
+              autoPlay 
+              muted 
+              loop 
+              playsInline
+              className="w-full h-full object-cover"
+              src="/videos/Recap-Abu%20Taymiyyah%20event.mp4"
+            />
+            
+            {/* Floating label inside video */}
+            <div className="absolute bottom-6 left-6 z-20">
+              <div className="bg-black/40 backdrop-blur-md border border-white/10 text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+                Abu Tayyimah Event
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </section>
   )
 }

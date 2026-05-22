@@ -1,97 +1,66 @@
 'use client'
 
 import React from 'react'
-import { Lightbulb, Video, Scissors, Users } from 'lucide-react'
-import { motion } from 'framer-motion'
-import { GlassCard } from '@/components/ui/GlassCard'
-import { GradientText } from '@/components/ui/GradientText'
-import { fadeUp, staggerContainer } from '@/lib/animations'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
+
+const steps = [
+  {
+    title: 'Strategie & Concept',
+    description: 'Geen aannames. We analyseren je markt en bouwen een ijzersterke blauwdruk voor je merk.'
+  },
+  {
+    title: 'Creatie & Ontwerp',
+    description: 'Van premium webdesign tot high-end videografie. We creëren assets die je concurrentie wegblazen.'
+  },
+  {
+    title: 'Groei & Opschalen',
+    description: 'We lanceren je campagnes, beheren je kanalen en sturen 100% op ROI en schaalbaarheid.'
+  }
+]
 
 export function HowWeWork() {
-
-  const steps = [
-    {
-      num: '01',
-      title: 'Bedenken',
-      icon: Lightbulb,
-      description: 'Wij bedenken een succesvol concept dat perfect aansluit bij jouw merk en doelgroep.'
-    },
-    {
-      num: '02',
-      title: 'Filmen',
-      icon: Video,
-      description: 'Wij filmen jouw shortform of corporate video met professionele high-end apparatuur.'
-    },
-    {
-      num: '03',
-      title: 'Editen',
-      icon: Scissors,
-      description: 'Wij editen de video tot perfectie met moderne effecten en pakkende storytelling.'
-    },
-    {
-      num: '04',
-      title: 'Beheren',
-      icon: Users,
-      description: 'Wij beheren jouw social media accounts en optimaliseren voor maximaal reach en leads.'
-    }
-  ]
+  const ref = useScrollAnimation()
 
   return (
-    <section id="how-we-work" className="relative py-24 z-10 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="how-we-work" ref={ref} className="relative py-24 lg:py-32 z-10 bg-[#0f2318]">
+      <div className="max-w-[1160px] mx-auto px-6 w-full">
         
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <h2 className="text-4xl sm:text-5xl font-display font-bold leading-tight mb-4">
-            Hoe wij <GradientText>te werk gaan</GradientText>
+        <div className="flex flex-col items-center text-center mb-16 lg:mb-20 w-full">
+          <span className="text-[#4aad73] font-bold text-xs tracking-widest uppercase mb-4">✦ Werkwijze</span>
+          <h2 className="text-4xl sm:text-5xl lg:text-[64px] font-bold leading-[1.1] tracking-tight text-[#f0f5f2] max-w-2xl">
+            Snel, transparant en <span className="text-[#8aab96]">bizar effectief.</span>
           </h2>
-          <p className="text-brand-muted text-base sm:text-lg leading-relaxed">
-            Van idee tot viral content en meetbare resultaten in 4 eenvoudige stappen.
-          </p>
         </div>
 
-        {/* Timeline container */}
-        <div className="relative">
-          {/* Connecting line for desktop (visible md+) */}
-          <div className="absolute top-[80px] left-[5%] right-[5%] h-[2px] bg-gradient-to-r from-brand-accent/20 via-brand-mid/40 to-brand-deep/20 hidden md:block" />
-
-          {/* Steps Grid */}
-          <motion.div
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, margin: "-100px" }}
-            className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10"
-          >
-            {steps.map((step) => {
-              const Icon = step.icon
-              return (
-                  <GlassCard
-                  key={step.num}
-                  variants={fadeUp}
-                  className="p-8 flex flex-col items-center text-center relative bg-brand-surface/40 hover:scale-[1.03] transition-transform duration-300 motion-mobile-static"
-                >
-                  {/* Step Number Badge */}
-                  <span className="absolute top-4 right-6 font-mono text-xs font-bold text-brand-accent/40">
-                    {step.num}
-                  </span>
-
-                  {/* Icon Circle */}
-                  <div className="w-16 h-16 rounded-full bg-brand-accent/10 border border-brand-accent/20 flex items-center justify-center text-brand-accent mb-6 glow-glow transition-all duration-300 group-hover:scale-110">
-                    <Icon className="w-7 h-7" />
-                  </div>
-
-                  <h3 className="text-xl font-bold font-display text-brand-text mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="text-brand-muted text-sm leading-relaxed">
-                    {step.description}
-                  </p>
-                </GlassCard>
-              )
-            })}
-          </motion.div>
+        {/* Steps Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {steps.map((step, index) => (
+            <div key={index} className="process-step" style={{ transitionDelay: `${index * 0.1}s` }}>
+              <div className="process-step-number">0{index + 1}</div>
+              <h4 className="process-step-title">{step.title}</h4>
+              <p className="process-step-desc">{step.description}</p>
+            </div>
+          ))}
         </div>
+
+        {/* BarakahLaunch Feature Box */}
+        <div className="process-feature-box mt-12" style={{ transitionDelay: '0.4s' }}>
+          <div>
+            <span className="barakahlaunch-badge">BarakahLaunch Programma</span>
+            <h3>Liever alles in één keer geregeld?</h3>
+            <p>Ons signature 30-dagen programma pakt alles tegelijk aan. Van complete rebranding tot een nieuwe website en je eerste marketing funnel.</p>
+          </div>
+          <div>
+            <h4>Wat je krijgt:</h4>
+            <ul>
+              <li>Complete merkstrategie & identiteit</li>
+              <li>High-performance webshop of website</li>
+              <li>Social media content playbook</li>
+              <li>Klaar om te schalen binnen 4 weken</li>
+            </ul>
+          </div>
+        </div>
+
       </div>
     </section>
   )

@@ -2,32 +2,44 @@
 
 import React from 'react'
 import { CountUp } from '@/components/ui/CountUp'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 export function StatsBanner() {
-  const stats = [
-    { value: 7, suffix: '', title: 'Specialisten' },
-    { value: 50, suffix: '+', title: 'Projecten' },
-    { value: 30, suffix: '', title: 'Dagen' },
-    { value: 20000000, suffix: '+', title: 'Weergaven' }
-  ]
+  const ref = useScrollAnimation()
 
   return (
-    <section id="stats" className="relative py-12 z-10">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="glass border border-white/10 rounded-[20px] backdrop-blur-20 py-8 px-4 sm:px-6 md:px-12 grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-0">
-          {stats.map((stat, index) => (
-            <div 
-              key={stat.title} 
-              className="flex flex-col items-center text-center px-4 py-6 lg:py-8"
-            >
-              <h3 className="font-mono font-bold tracking-tight text-brand-gradient bg-brand-gradient bg-clip-text text-transparent mb-2 text-3xl sm:text-4xl lg:text-5xl">
-                <CountUp end={stat.value} suffix={stat.suffix} />
-              </h3>
-              <p className="text-brand-muted text-xs sm:text-sm font-semibold uppercase tracking-wider font-body">
-                {stat.title}
-              </p>
+    <section id="stats" ref={ref} className="relative z-10 bg-[#0a1a14] stats-section">
+      <div className="max-w-[1160px] mx-auto px-6">
+        <div className="stats-grid">
+          
+          <div className="stat-item" style={{ transitionDelay: '0s' }}>
+            <div className="stat-number">
+              <CountUp end={7} suffix="" />
             </div>
-          ))}
+            <div className="stat-label">Specialisten</div>
+          </div>
+          
+          <div className="stat-item" style={{ transitionDelay: '0.1s' }}>
+            <div className="stat-number">
+              <CountUp end={50} suffix="+" />
+            </div>
+            <div className="stat-label">Projecten</div>
+          </div>
+          
+          <div className="stat-item featured" style={{ transitionDelay: '0.2s' }}>
+            <div className="stat-number">
+              <CountUp end={30} suffix="" />
+            </div>
+            <div className="stat-label">Dagen oplevering</div>
+          </div>
+          
+          <div className="stat-item" style={{ transitionDelay: '0.3s' }}>
+            <div className="stat-number">
+              <CountUp end={20000000} suffix="+" />
+            </div>
+            <div className="stat-label">Weergaven gegenereerd</div>
+          </div>
+
         </div>
       </div>
     </section>

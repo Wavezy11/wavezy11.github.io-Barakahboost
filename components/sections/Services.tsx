@@ -2,12 +2,9 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { Layout, Code, Share2, Sparkles, Camera, Users, TrendingUp, Search, ArrowRight } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { Layout, Code, Share2, Sparkles, Camera, Users, TrendingUp, Search, ArrowRight, Zap } from 'lucide-react'
 import { services } from '@/lib/data'
-import { GlassCard } from '@/components/ui/GlassCard'
-import { GradientText } from '@/components/ui/GradientText'
-import { fadeUp, staggerContainer } from '@/lib/animations'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 const iconMap: Record<string, React.ComponentType<any>> = {
   Layout: Layout,
@@ -21,60 +18,51 @@ const iconMap: Record<string, React.ComponentType<any>> = {
 }
 
 export function Services() {
+  const ref = useScrollAnimation()
 
   return (
-    <section id="services" className="relative py-24 z-10">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="services" ref={ref} className="relative py-24 lg:py-32 z-10 bg-[#0a1a14]">
+      <div className="max-w-[1160px] mx-auto px-6 w-full">
         
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-4xl sm:text-5xl font-display font-bold leading-tight mb-4">
-            Onze <GradientText>diensten</GradientText>
+        <div className="flex flex-col items-center text-center mb-16 lg:mb-20 w-full">
+          <span className="text-[#4aad73] font-bold text-xs tracking-widest uppercase mb-4">✦ Onze Expertise</span>
+          <h2 className="text-4xl sm:text-5xl lg:text-[64px] font-bold leading-[1.1] tracking-tight mb-6 text-[#f0f5f2]">
+            Alles voor <span className="text-[#8aab96]">maximale impact.</span>
           </h2>
-          <p className="text-brand-muted text-base sm:text-lg leading-relaxed">
-            Met 8 specialistische disciplines bouwen we aan het succes en de meetbare groei van jouw merk.
-          </p>
         </div>
 
-        {/* Services Grid */}
-        <motion.div 
-          variants={staggerContainer}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6"
-        >
-          {services.map((service) => {
+        {/* 1. BarakahLaunch Featured Block (volle breedte) bovenaan */}
+        <div className="barakahlaunch-featured">
+          <div>
+            <div className="barakahlaunch-badge">Populairste Keuze</div>
+            <h3 className="barakahlaunch-title">BarakahLaunch</h3>
+            <p className="barakahlaunch-desc">
+              Ons flagship programma. Binnen 30 dagen een complete, hoog-converterende online aanwezigheid inclusief brand identity, website en content strategie.
+            </p>
+            <Link href="#contact" className="barakahlaunch-cta">Start je Launch →</Link>
+          </div>
+          <div className="hidden lg:flex relative h-full min-h-[240px] items-center justify-center">
+            <div className="absolute inset-0 bg-[#4aad73]/10 rounded-full blur-3xl mix-blend-screen"></div>
+            <Zap className="w-32 h-32 text-[#4aad73] opacity-80" />
+          </div>
+        </div>
+
+        {/* 2. Overige diensten in een 3-kolom grid */}
+        <div className="services-grid mt-12">
+          {services.map((service, i) => {
             const IconComponent = iconMap[service.icon] || Layout
             return (
-              <GlassCard
-                key={service.id}
-                variants={fadeUp}
-                className="p-5 sm:p-6 flex flex-col gap-3 items-center text-center sm:items-start sm:text-left justify-between h-[280px] w-full motion-mobile-static"
-              >
-                <div className="flex flex-col items-center text-center sm:items-start sm:text-left w-full">
-                  <div className="w-12 h-12 rounded-xl bg-brand-accent/10 border border-brand-accent/20 flex items-center justify-center text-brand-accent mb-6 glow-glow">
-                    <IconComponent className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-xl font-bold font-display text-brand-text mb-2">
-                    {service.title}
-                  </h3>
-                  <p className="text-brand-muted text-sm leading-relaxed line-clamp-3">
-                    {service.description}
-                  </p>
+              <div key={i} className="service-card" style={{ transitionDelay: `${i * 0.1}s` }}>
+                <div className="service-card-icon">
+                  <IconComponent className="w-full h-full" />
                 </div>
-                
-                <Link
-                  href={`/diensten/${service.slug}`}
-                  className="inline-flex items-center gap-1 text-sm font-semibold text-brand-accent hover:gap-2 transition-all mt-6 justify-center sm:justify-start"
-                >
-                  <span>Meer info</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </GlassCard>
+                <h4 className="service-card-title">{service.title}</h4>
+                <p className="service-card-desc">{service.description}</p>
+              </div>
             )
           })}
-        </motion.div>
+        </div>
+
       </div>
     </section>
   )

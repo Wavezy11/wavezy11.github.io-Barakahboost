@@ -1,69 +1,54 @@
 'use client'
 
 import React from 'react'
-import { Quote } from 'lucide-react'
-import { motion } from 'framer-motion'
 import { testimonials } from '@/lib/data'
-import { GlassCard } from '@/components/ui/GlassCard'
-import { GradientText } from '@/components/ui/GradientText'
-import { fadeUp, staggerContainer } from '@/lib/animations'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
+
+const getLogoForCompany = (companyName: string) => {
+  const normalized = companyName.toLowerCase().replace(/[^a-z0-9]/g, '')
+  if (normalized.includes('spaolivia')) return '/partners/1.png'
+  if (normalized.includes('systematex')) return '/partners/2.png'
+  if (normalized.includes('ziya')) return '/partners/3.png'
+  return '/partners/4.png' // Default logo
+}
 
 export function Testimonials() {
+  const ref = useScrollAnimation()
+
   return (
-    <section className="relative py-24 z-10">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="relative py-24 lg:py-32 z-10 bg-[#0a1a14]">
+      <div className="max-w-[1160px] mx-auto px-6 w-full" ref={ref}>
         
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-4xl sm:text-5xl font-display font-bold leading-tight mb-4">
-            Wat onze <GradientText>klanten zeggen</GradientText>
+        <div className="flex flex-col items-center text-center mb-16 lg:mb-20 w-full">
+          <span className="text-[#4aad73] font-bold text-xs tracking-widest uppercase mb-4">✦ Klantenverhalen</span>
+          <h2 className="text-4xl sm:text-5xl lg:text-[64px] font-bold leading-[1.1] tracking-tight text-[#f0f5f2] max-w-2xl">
+            Wat onze <span className="text-[#8aab96]">klanten zeggen.</span>
           </h2>
-          <p className="text-brand-muted text-base sm:text-lg leading-relaxed">
-            De resultaten spreken voor zich. Lees de ervaringen van ondernemers die met ons groeien.
-          </p>
         </div>
 
-        {/* Testimonials Grid */}
-        <motion.div
-          variants={staggerContainer}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:overflow-x-auto gap-4"
-        >
-          {testimonials.map((t) => (
-            <GlassCard
-              key={t.author}
-              variants={fadeUp}
-              className="p-6 flex flex-col justify-between relative bg-white/[0.01] border-white/5 w-full lg:min-w-[340px] lg:max-w-[400px] flex-shrink-0 rounded-2xl"
-            >
-              {/* Quote Mark Icon */}
-              <div className="text-brand-accent/20 absolute top-6 right-8">
-                <Quote className="w-10 h-10 fill-current" />
-              </div>
-
-              {/* Quote Body */}
-              <p className="text-brand-text text-sm sm:text-base leading-relaxed italic mb-8 relative z-10">
-                &ldquo;{t.quote}&rdquo;
-              </p>
-
-              {/* Author Details */}
-              <div className="flex items-center gap-4 border-t border-white/5 pt-6">
-                <div className="w-10 h-10 rounded-full bg-brand-gradient flex items-center justify-center text-brand-dark text-xs font-bold font-mono">
-                  {t.initials}
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-brand-text">
-                    {t.author}
-                  </h4>
-                  <p className="text-brand-muted text-xs uppercase tracking-wider">
-                    {t.company}
-                  </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {testimonials.map((t, index) => {
+            const logoPath = getLogoForCompany(t.company)
+            
+            return (
+              <div 
+                key={index} 
+                className="testimonial-card"
+                style={{ transitionDelay: `${index * 0.1}s` }}
+              >
+                <span className="testimonial-quote-mark">"</span>
+                <p className="testimonial-text">{t.quote}</p>
+                <div className="testimonial-author">
+                  <img src={logoPath} alt="Logo" className="testimonial-logo" />
+                  <div>
+                    <div className="testimonial-author-name">{t.author}</div>
+                    <div className="testimonial-author-role">{t.company}</div>
+                  </div>
                 </div>
               </div>
-            </GlassCard>
-          ))}
-        </motion.div>
+            )
+          })}
+        </div>
       </div>
     </section>
   )

@@ -1,24 +1,14 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import { DM_Mono, Plus_Jakarta_Sans, Outfit } from 'next/font/google'
+import { Outfit } from 'next/font/google'
 import '@/app/globals.css'
+import { CustomCursor } from '@/components/ui/CustomCursor'
+import { WhatsAppButton } from '@/components/WhatsAppButton'
 
-const dmMono = DM_Mono({
+const outfit = Outfit({
   subsets: ['latin'],
-  weight: ['400', '500'],
-  variable: '--font-dm-mono',
-})
-
-const satoshi = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-satoshi',
-})
-
-const clashDisplay = Outfit({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-clash',
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-outfit',
 })
 
 export const metadata: Metadata = {
@@ -84,7 +74,7 @@ export default function RootLayout({
     },
     "sameAs": [
       "https://www.instagram.com/barakahboost.nl/",
-      "https://www.tiktok.com/@barakahboost.nl",
+      "https://www.tiktok.com/@barakahboostnl",
       "https://www.linkedin.com/company/barakahboost/"
     ]
   }
@@ -93,7 +83,7 @@ export default function RootLayout({
     <html 
       lang="nl" 
       suppressHydrationWarning
-      className={`${satoshi.variable} ${clashDisplay.variable} ${dmMono.variable}`}
+      className={`${outfit.variable} font-sans`}
     >
       <head>
         {/* JSON-LD Structured Data Schema */}
@@ -102,8 +92,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body suppressHydrationWarning>
+      <body className="font-sans" suppressHydrationWarning>
+        <CustomCursor />
         {children}
+        <WhatsAppButton />
       </body>
     </html>
   )

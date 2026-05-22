@@ -3,71 +3,119 @@
 import React from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Badge } from '@/components/ui/Badge'
-import { Button } from '@/components/ui/Button'
+import { Check, Rocket } from 'lucide-react'
 import { GradientText } from '@/components/ui/GradientText'
-import { GlassCard } from '@/components/ui/GlassCard'
+import { fadeUp } from '@/lib/animations'
+
+const featuresLeft = ['Branding', 'Website', 'Positionering', 'Content']
+const featuresRight = ['Marketingstrategie', 'Lead Generatie', 'Social Media', 'Copywriting']
 
 export function BarakahLaunchTeaser() {
-  const pills = [
-    'Branding',
-    'Website',
-    'Positionering',
-    'Content',
-    'Marketingstrategie',
-    'Lead Generatie',
-  ]
-
   return (
-    <section className="relative py-24 bg-brand-surface2/25 border-y border-white/5 overflow-hidden z-10">
-      {/* Decorative Glow */}
-      <div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] rounded-full blur-[100px] pointer-events-none opacity-20"
-        style={{ 
-          background: 'radial-gradient(circle, rgba(62,207,178,0.2) 0%, transparent 70%)' 
-        }} 
-      />
-
-      <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
+    <section 
+      id="barakahlaunch" 
+      className="relative py-[80px] lg:py-[120px] z-10"
+      style={{
+        background: 'rgba(0,200,130,0.04)',
+        borderTop: '1px solid rgba(0,200,130,0.15)',
+        borderBottom: '1px solid rgba(0,200,130,0.15)'
+      }}
+    >
+      <div className="max-w-7xl mx-auto px-6">
         
-        {/* Exclusive Badge */}
-        <div className="flex justify-center mb-6">
-          <Badge className="border-brand-accent/20 text-brand-accent px-4 py-1.5 text-xs font-bold font-mono">
-            ✦ EXCLUSIEF TRAJECT
-          </Badge>
-        </div>
+        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
+          
+          {/* Left Content */}
+          <motion.div 
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="w-full lg:w-1/2 flex flex-col items-start"
+          >
+            <span className="section-label mb-6">✦ EXCLUSIEF TRAJECT</span>
+            
+            <h2 className="text-4xl sm:text-5xl lg:text-[64px] font-display font-bold leading-[1.1] tracking-tight mb-6">
+              Het ultieme <br/> <GradientText>groeisysteem</GradientText>
+            </h2>
+            
+            <p className="text-brand-muted text-lg leading-relaxed mb-8 max-w-lg">
+              Geen losse diensten, maar één krachtig ecosysteem. Wij bouwen je complete online aanwezigheid en schalen je omzet.
+            </p>
 
-        {/* Headline */}
-        <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold leading-tight mb-6">
-          Van nul naar professioneel.<br />
-          In <GradientText>30 dagen</GradientText>.
-        </h2>
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full mb-10" style={{ background: 'rgba(0,200,130,0.15)', border: '1px solid rgba(0,200,130,0.3)' }}>
+              <span className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00c882] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00c882]"></span>
+              </span>
+              <span className="text-[#00c882] text-xs font-bold uppercase tracking-widest">
+                Nog 2 plekken beschikbaar deze maand
+              </span>
+            </div>
 
-        {/* Description */}
-        <p className="text-brand-muted text-base sm:text-lg leading-relaxed max-w-2xl mx-auto mb-10">
-          BarakahLaunch is ons complete positioneringstraject voor bedrijven die serieus willen groeien. Wij bouwen jouw branding, custom website, marketingstrategie, content en lead generatie — alles volledig live binnen één maand.
-        </p>
+            <Link href="/barakahlaunch" className="w-full">
+              <button 
+                className="transition-transform hover:translate-y-[-2px] flex items-center justify-center gap-2"
+                style={{
+                  padding: '16px 32px',
+                  background: '#00c882',
+                  color: '#000',
+                  fontWeight: 700,
+                  borderRadius: '8px',
+                  width: '100%',
+                  maxWidth: '320px',
+                  fontSize: '16px'
+                }}
+              >
+                <Rocket className="w-5 h-5" />
+                Ontdek BarakahLaunch
+              </button>
+            </Link>
+          </motion.div>
 
-        {/* Pills Grid */}
-        <div className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto mb-12">
-          {pills.map((pill) => (
-            <span
-              key={pill}
-              className="glass border border-white/5 bg-white/[0.02] text-brand-text/90 px-5 py-2.5 rounded-full text-sm font-semibold tracking-wide whitespace-nowrap"
+          {/* Right Features */}
+          <motion.div 
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            className="w-full lg:w-1/2"
+          >
+            <div 
+              className="p-8 lg:p-12 rounded-[24px]"
+              style={{
+                background: 'rgba(255,255,255,0.02)',
+                border: '1px solid rgba(255,255,255,0.05)'
+              }}
             >
-              {pill}
-            </span>
-          ))}
+              <h3 className="text-2xl font-bold text-white mb-8">Wat is inbegrepen:</h3>
+              <div className="flex gap-8 lg:gap-16">
+                <ul className="flex flex-col gap-6 w-1/2">
+                  {featuresLeft.map((feat, idx) => (
+                    <li key={idx} className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[rgba(0,200,130,0.15)] flex items-center justify-center">
+                        <Check className="w-3.5 h-3.5 text-[#00c882]" />
+                      </div>
+                      <span className="text-white/90 font-medium">{feat}</span>
+                    </li>
+                  ))}
+                </ul>
+                <ul className="flex flex-col gap-6 w-1/2">
+                  {featuresRight.map((feat, idx) => (
+                    <li key={idx} className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[rgba(0,200,130,0.15)] flex items-center justify-center">
+                        <Check className="w-3.5 h-3.5 text-[#00c882]" />
+                      </div>
+                      <span className="text-white/90 font-medium">{feat}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </motion.div>
+
         </div>
 
-        {/* Action Link */}
-        <div className="flex justify-center">
-          <Link href="/barakahlaunch">
-            <Button className="px-10 py-4 uppercase text-xs tracking-wider font-bold text-brand-dark">
-              Ontdek BarakahLaunch &rarr;
-            </Button>
-          </Link>
-        </div>
       </div>
     </section>
   )

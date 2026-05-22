@@ -1,90 +1,53 @@
 'use client'
 
 import React from 'react'
-import { Sparkles, Trophy, Eye, HeartHandshake } from 'lucide-react'
 import { motion } from 'framer-motion'
-import { GlassCard } from '@/components/ui/GlassCard'
-import { GradientText } from '@/components/ui/GradientText'
 import { fadeUp, staggerContainer } from '@/lib/animations'
 
 export function WhyUs() {
-
-  const points = [
-    {
-      icon: Sparkles,
-      text: 'Geen standaard templates. Altijd custom.',
-      description: 'Elke website, strategie en campagne is vanaf nul voor jou ontworpen.'
-    },
-    {
-      icon: Trophy,
-      text: '7 specialisten, één visie: jouw groei.',
-      description: 'Experts in design, copywriting, ads en video bundelen hun krachten.'
-    },
-    {
-      icon: Eye,
-      text: 'Transparant, snel en resultaatgericht.',
-      description: 'Geen loze beloftes. Wel duidelijke cijfers en wekelijkse updates.'
-    },
-    {
-      icon: HeartHandshake,
-      text: 'Jouw partner, niet een leverancier.',
-      description: 'Wij denken proactief met je mee en vieren jouw successen samen.'
-    }
-  ]
-
   return (
-    <section className="relative py-24 z-10 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+    <section id="why-us" className="relative py-24 lg:py-32 z-10 bg-[#0a1a14] section-animate">
+      <div className="max-w-[800px] mx-auto px-6 w-full text-left">
         
-        {/* Left Column: Heading Statement */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="space-y-6 flex flex-col items-center text-center lg:items-start lg:text-left motion-mobile-static"
-        >
-          <span className="text-xs uppercase tracking-widest text-brand-accent font-bold font-mono">✦ WAAROM BARAKAHBOOST</span>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight">
-            Wij leveren geen diensten.<br />
-            Wij leveren <GradientText>resultaten</GradientText>.
-          </h2>
-          <p className="text-brand-muted text-base sm:text-lg leading-relaxed max-w-xl">
-            In een wereld van marketingbureaus die templates verkopen en beloftes doen, focussen wij ons op wat écht telt: de groei van jouw onderneming. Met passie, toewijding en bewezen strategieën.
-          </p>
-        </motion.div>
-
-        {/* Right Column: Stacked Cards */}
         <motion.div
           variants={staggerContainer}
           initial="initial"
           whileInView="animate"
           viewport={{ once: true, margin: "-100px" }}
-          className="space-y-4"
+          className="flex flex-col gap-8"
         >
-          {points.map((point) => {
-            const Icon = point.icon
-            return (
-              <GlassCard
-                key={point.text}
-                variants={fadeUp}
-                className="p-6 flex flex-col items-center text-center sm:flex-row sm:items-start sm:text-left gap-5 border border-white/5 bg-white/[0.02] motion-mobile-static"
-              >
-                <div className="w-10 h-10 rounded-lg bg-brand-accent/10 border border-brand-accent/20 flex items-center justify-center text-brand-accent shrink-0 glow-glow">
-                  <Icon className="w-5 h-5" />
-                </div>
-                <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
-                  <h4 className="text-base font-bold text-brand-text mb-1">
-                    {point.text}
-                  </h4>
-                  <p className="text-brand-muted text-sm leading-relaxed">
-                    {point.description}
-                  </p>
-                </div>
-              </GlassCard>
-            )
-          })}
+          <motion.span variants={fadeUp} className="text-[#4aad73] font-bold text-xs tracking-widest uppercase">
+            ✦ De standaard doorbreken
+          </motion.span>
+          
+          <motion.h2 
+            variants={fadeUp}
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.2] tracking-tight text-[#f0f5f2]"
+          >
+            De meeste bureaus leveren hetzelfde riedeltje: wat posts, wat ads en een simpele website. 
+            <span className="text-[#8aab96]"> Wij bouwen onweerstaanbare merken en converterende systemen.</span>
+          </motion.h2>
+
+          <motion.p variants={fadeUp} className="text-[#8aab96] text-lg leading-relaxed mt-4">
+            In de huidige markt wint de partij met de sterkste presentatie en de snelste executie. 
+            Wij zorgen dat jouw merk niet alleen opvalt, maar ook direct converteert. 
+            Geen theoretische plannen, maar harde resultaten binnen 30 dagen.
+          </motion.p>
+
+          <motion.div 
+            variants={fadeUp}
+            className="mt-8 pl-6 border-l-2 border-[#2d7a4f]"
+          >
+            <p className="text-xl sm:text-2xl font-medium text-[#f0f5f2] italic mb-4 leading-relaxed">
+              "BarakahBoost heeft niet alleen onze website gebouwd, maar onze complete digitale uitstraling geprofessionaliseerd. Binnen een paar weken stonden we live met een merk dat autoriteit uitstraalt."
+            </p>
+            <div className="flex flex-col">
+              <span className="text-white font-bold tracking-wide">Ibrahim</span>
+              <span className="text-[#4aad73] text-sm font-semibold uppercase tracking-wider mt-1">Founder, Nornion</span>
+            </div>
+          </motion.div>
         </motion.div>
+
       </div>
     </section>
   )

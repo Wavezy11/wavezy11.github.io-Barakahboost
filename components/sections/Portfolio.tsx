@@ -1,245 +1,162 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { X, Play, ExternalLink } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { cases, CaseStudy, GalleryItem } from '@/lib/data'
-import { GlassCard } from '@/components/ui/GlassCard'
-import { GradientText } from '@/components/ui/GradientText'
-import { Badge } from '@/components/ui/Badge'
-import { Button } from '@/components/ui/Button'
-import { fadeUp, staggerContainer } from '@/lib/animations'
+import { cases, CaseStudy } from '@/lib/data'
+import { ArrowRight, X } from 'lucide-react'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 export function Portfolio() {
-  const [activeCase, setActiveCase] = useState<CaseStudy | null>(null)
-  const [activeMediaIndex, setActiveMediaIndex] = useState<number>(0)
+  const [selectedCase, setSelectedCase] = useState<CaseStudy | null>(null)
+  const ref = useScrollAnimation()
 
-  const openModal = (c: CaseStudy) => {
-    setActiveCase(c)
-    setActiveMediaIndex(0)
-  }
+  useEffect(() => {
+    if (selectedCase) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => { document.body.style.overflow = 'unset' }
+  }, [selectedCase])
 
-  const closeModal = () => {
-    setActiveCase(null)
-  }
+  if (cases.length < 3) return null;
 
   return (
-    <section id="portfolio" className="relative py-24 z-10">
-      <div className="max-w-7xl mx-auto px-6">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-4xl sm:text-5xl font-display font-bold leading-tight mb-4">
-            Ons <GradientText>werk</GradientText>
-          </h2>
-          <p className="text-brand-muted text-base sm:text-lg leading-relaxed">
-            Ontdek een selectie van onze recente cases en bekijk hoe we impact maken.
-          </p>
-        </div>
-
-        {/* Portfolio Grid */}
-        <motion.div
-          variants={staggerContainer}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6"
-        >
-          {cases.map((item) => (
-            <motion.div
-              key={item.id}
-              variants={fadeUp}
-              onClick={() => openModal(item)}
-              className="group cursor-pointer motion-mobile-static"
+    <>
+      <section id="portfolio" ref={ref} className="relative py-24 lg:py-32 z-10 bg-[#0a1a14]">
+        <div className="max-w-[1160px] mx-auto px-6 w-full">
+          
+          <div className="flex flex-col items-start mb-16 lg:mb-20 w-full">
+            <span className="text-[#4aad73] font-bold text-xs tracking-widest uppercase mb-4">✦ Geselecteerd werk</span>
+            <h2 
+              className="text-[#f0f5f2] font-bold tracking-tight leading-[1.1] max-w-2xl"
+              style={{ fontSize: 'clamp(40px, 5vw, 64px)' }}
             >
-              <GlassCard className="p-0 overflow-hidden border border-white/5 bg-white/[0.01] flex flex-col h-full rounded-[24px]">
-                {/* Image Section */}
-                <div className="relative w-full aspect-[4/3] overflow-hidden bg-brand-surface2 rounded-t-2xl">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    unoptimized
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    style={{ objectPosition: item.imagePosition || 'center' }}
-                  />
-                  {/* Subtle Accent Glow Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-60" />
-                  
-                  {/* Hover visual cue */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-brand-dark/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-[2px]">
-                    <div className="w-14 h-14 rounded-full bg-brand-accent/25 border border-brand-accent/40 flex items-center justify-center text-brand-accent shadow-[0_0_20px_rgba(62,207,178,0.3)]">
-                      <Play className="w-6 h-6 fill-current ml-0.5" />
-                    </div>
-                  </div>
+              Cases die spreken, <br/><span className="text-[#8aab96]">resultaten die tellen.</span>
+            </h2>
+          </div>
 
-                  {/* Badge */}
-                  <div className="absolute top-4 left-4 z-10">
-                    <Badge className="bg-brand-dark/75 border-white/10 text-brand-accent">
-                      {item.stat}
-                    </Badge>
-                  </div>
+          <div className="cases-grid">
+            {cases.slice(0, 3).map((caseData, idx) => (
+              <div 
+                key={idx} 
+                className="case-card" 
+                onClick={() => setSelectedCase(caseData)}
+                style={{ transitionDelay: `${idx * 0.1}s` }}
+              >
+                <img 
+                  src={caseData.image} 
+                  alt={caseData.title} 
+                  style={{ objectPosition: caseData.imagePosition || 'center' }} 
+                />
+                <div className="case-card-overlay" />
+                <div className="case-card-content">
+                  <div className="case-card-badge">{caseData.stat}</div>
+                  <div className="case-card-title">{caseData.title}</div>
+                  <div className="case-card-label">{caseData.shortDescription}</div>
+                  <div className="case-card-cta">Lees de case →</div>
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-                {/* Info Section */}
-                <div className="p-6 flex flex-col justify-between flex-grow">
-                  <div>
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      {item.tags.slice(0, 2).map((tag) => (
-                        <span key={tag} className="text-[10px] uppercase font-bold tracking-wider text-brand-muted">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <h3 className="text-xl font-bold font-display text-brand-text mb-2 group-hover:text-brand-accent transition-colors">
-                      {item.title}
-                    </h3>
-                    <p className="text-brand-muted text-sm leading-relaxed line-clamp-3">
-                      {item.shortDescription}
-                    </p>
-                  </div>
-                  
-                  <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-brand-accent mt-6">
-                    Case bekijken &rarr;
-                  </span>
-                </div>
-              </GlassCard>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-
-      {/* Detail Modal Overlay */}
+      {/* Project Modal */}
       <AnimatePresence>
-        {activeCase && (
+        {selectedCase && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-brand-dark/90 backdrop-blur-20 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
-            onClick={closeModal}
+            onClick={() => setSelectedCase(null)}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/90 backdrop-blur-md"
           >
             <motion.div
-              initial={{ scale: 0.95, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 20 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 250 }}
-              className="glass border border-white/10 rounded-[30px] w-full max-w-5xl overflow-hidden bg-brand-surface/90 shadow-2xl relative grid grid-cols-1 lg:grid-cols-2"
+              initial={{ opacity: 0, y: 50, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.95 }}
               onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto bg-[#0a1a14] border border-white/10 rounded-2xl shadow-2xl custom-scrollbar"
             >
-              {/* Close Button */}
-              <button
-                onClick={closeModal}
-                className="absolute top-5 right-5 z-20 text-brand-muted hover:text-brand-accent transition-colors bg-brand-dark/50 p-2.5 rounded-full border border-white/10"
-                aria-label="Sluit modal"
+              <button 
+                onClick={() => setSelectedCase(null)}
+                className="absolute top-4 right-4 z-20 w-10 h-10 bg-black/50 hover:bg-black/80 rounded-full flex items-center justify-center text-white transition-colors border border-white/10"
               >
                 <X className="w-5 h-5" />
               </button>
 
-              {/* Left Column: Media Player */}
-              <div className="relative aspect-[3/4] lg:aspect-auto lg:h-[650px] bg-black flex items-center justify-center overflow-hidden">
-                {activeCase.gallery[activeMediaIndex] && (
-                  typeof activeCase.gallery[activeMediaIndex] === 'string' ? (
-                    <Image
-                      src={activeCase.gallery[activeMediaIndex] as string}
-                      alt={activeCase.title}
-                      fill
-                      unoptimized
-                      className="object-contain"
-                    />
-                  ) : (
-                    (activeCase.gallery[activeMediaIndex] as GalleryItem).type === 'video' ? (
-                      <video
-                        src={(activeCase.gallery[activeMediaIndex] as GalleryItem).src}
-                        poster={(activeCase.gallery[activeMediaIndex] as GalleryItem).thumbnail}
-                        controls
-                        autoPlay
-                        loop
-                        playsInline
-                        className="w-full h-full object-contain"
-                      />
-                    ) : (
-                      <Image
-                        src={(activeCase.gallery[activeMediaIndex] as GalleryItem).src}
-                        alt={activeCase.title}
-                        fill
-                        unoptimized
-                        className="object-contain"
-                      />
-                    )
-                  )
-                )}
-
-                {/* Media Selector (if multiple items) */}
-                {activeCase.gallery.length > 1 && (
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-                    {activeCase.gallery.map((_, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setActiveMediaIndex(idx)}
-                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                          activeMediaIndex === idx
-                            ? 'bg-brand-accent w-6'
-                            : 'bg-white/40 hover:bg-white/60'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                )}
+              <div className="relative w-full h-[40vh] min-h-[300px]">
+                <img
+                  src={selectedCase.image}
+                  alt={selectedCase.title}
+                  className="w-full h-full object-cover"
+                  style={{ objectPosition: selectedCase.imagePosition || 'center' }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a1a14] to-transparent" />
               </div>
 
-              {/* Right Column: Case Info */}
-              <div className="p-8 sm:p-10 flex flex-col justify-between h-full max-h-[650px] overflow-y-auto">
-                <div className="space-y-6">
-                  {/* Badges */}
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-brand-accent/15 border-brand-accent/30 text-brand-accent">
-                      {activeCase.stat}
-                    </Badge>
-                    {activeCase.tags.map((tag) => (
-                      <span key={tag} className="text-xs font-semibold text-brand-muted bg-white/5 border border-white/5 px-2.5 py-1 rounded-md">
-                        {tag}
-                      </span>
-                    ))}
+              <div className="px-6 sm:px-10 pb-10 -mt-20 relative z-10">
+                <span className="mb-4 inline-block bg-[#2d7a4f] text-[#f0f5f2] text-xs px-4 py-1.5 rounded-full font-bold">
+                  {selectedCase.stat}
+                </span>
+                
+                <h2 className="text-3xl sm:text-5xl font-bold text-white mb-4 tracking-tight">
+                  {selectedCase.title}
+                </h2>
+
+                <div className="flex flex-wrap gap-2 mb-8">
+                  {selectedCase.tags.map(tag => (
+                    <span key={tag} className="text-xs font-bold uppercase tracking-wider text-white/50 bg-white/5 px-3 py-1 rounded-md">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <p className="text-[#8aab96] text-lg leading-relaxed mb-12 max-w-3xl">
+                  {selectedCase.description}
+                </p>
+
+                {selectedCase.gallery && selectedCase.gallery.length > 0 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {selectedCase.gallery.map((item, idx) => {
+                      const isObj = typeof item !== 'string'
+                      const type = isObj ? (item as any).type : 'image'
+                      const src = isObj ? (item as any).src : item
+                      
+                      return (
+                        <div key={idx} className={`relative rounded-xl overflow-hidden bg-white/5 ${isObj && (item as any).isVertical ? 'aspect-[9/16]' : 'aspect-video'}`}>
+                          {type === 'video' ? (
+                            <video 
+                              src={src} 
+                              autoPlay 
+                              muted 
+                              loop 
+                              playsInline 
+                              className="absolute inset-0 w-full h-full object-cover"
+                            />
+                          ) : (
+                            <img src={src} alt="Gallery image" className="w-full h-full object-cover" />
+                          )}
+                        </div>
+                      )
+                    })}
                   </div>
+                )}
 
-                  {/* Title */}
-                  <h3 className="text-3xl sm:text-4xl font-display font-bold text-brand-text">
-                    {activeCase.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-brand-muted text-sm sm:text-base leading-relaxed whitespace-pre-line">
-                    {activeCase.description}
-                  </p>
-                </div>
-
-                {/* Footer buttons */}
-                <div className="mt-8 flex flex-col sm:flex-row gap-4 pt-6 border-t border-white/5">
-                  {activeCase.projectLink && (
-                    <a
-                      href={activeCase.projectLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1"
-                    >
-                      <Button className="w-full text-brand-dark uppercase tracking-wider text-xs py-3.5">
-                        <span className="flex items-center justify-center gap-1.5 font-bold">
-                          Bekijk live project <ExternalLink className="w-3.5 h-3.5" />
-                        </span>
-                      </Button>
+                {selectedCase.projectLink && selectedCase.projectLink !== '#' && (
+                  <div className="mt-12">
+                    <a href={selectedCase.projectLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[#4aad73] text-black px-8 py-4 rounded-lg font-bold hover:bg-white transition-colors">
+                      Bekijk live project <ArrowRight className="w-5 h-5" />
                     </a>
-                  )}
-                  <Button variant="secondary" onClick={closeModal} className="flex-1 uppercase tracking-wider text-xs py-3.5 font-bold">
-                    Sluiten
-                  </Button>
-                </div>
+                  </div>
+                )}
               </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </section>
+    </>
   )
 }
